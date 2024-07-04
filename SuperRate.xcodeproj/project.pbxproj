@@ -35,6 +35,7 @@
 		533BF20C2C37250300435DE4 /* MyOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF20B2C37250300435DE4 /* MyOrder.swift */; };
 		533BF20F2C37287200435DE4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF20E2C37287200435DE4 /* NetworkManager.swift */; };
 		533BF2122C3728D900435DE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2112C3728D900435DE4 /* Constants.swift */; };
+		533BF2172C3750B400435DE4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2162C3750B400435DE4 /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		533BF20B2C37250300435DE4 /* MyOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrder.swift; sourceTree = "<group>"; };
 		533BF20E2C37287200435DE4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		533BF2112C3728D900435DE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		533BF2162C3750B400435DE4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				533BF2002C35EC2900435DE4 /* ProfileViewController.swift */,
+				533BF2162C3750B400435DE4 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				533BF1F72C35CDFC00435DE4 /* UserAuthenticationManager.swift in Sources */,
 				533BF20F2C37287200435DE4 /* NetworkManager.swift in Sources */,
 				533BF1FC2C35E8F800435DE4 /* TabBarController.swift in Sources */,
+				533BF2172C3750B400435DE4 /* ProfileViewModel.swift in Sources */,
 				533BF2122C3728D900435DE4 /* Constants.swift in Sources */,
 				533BF1E62C35B8B500435DE4 /* OnboardingViewControllers.swift in Sources */,
 				533BF2072C36E00700435DE4 /* CurrencyViewModel.swift in Sources */,
