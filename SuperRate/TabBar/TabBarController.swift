@@ -34,7 +34,7 @@ final class TabBarController: UITabBarController {
     let navigationController = UINavigationController(rootViewController: viewController)
     navigationController.tabBarItem.title = title
     navigationController.tabBarItem.image = image
-    // navigationController.viewControllers.first?.navigationItem.title = title
+    viewController.title = title
     return navigationController
   }
 
@@ -49,13 +49,13 @@ final class TabBarController: UITabBarController {
 
   private func createTabBarAppearance() -> UITabBarAppearance {
     let tabBarAppearance = UITabBarAppearance()
-    tabBarAppearance.backgroundColor = .customBackgroundColor
+    tabBarAppearance.backgroundColor = .customSecondaryColor
     return tabBarAppearance
   }
 
   private func createTabBarScrollEdgeAppearance() -> UITabBarAppearance {
     let tabBarScrollEdgeAppearance = UITabBarAppearance()
-    tabBarScrollEdgeAppearance.backgroundColor = .customBackgroundColor
+    tabBarScrollEdgeAppearance.backgroundColor = .customSecondaryColor
     return tabBarScrollEdgeAppearance
   }
 }
