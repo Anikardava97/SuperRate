@@ -14,7 +14,9 @@ final class CurrencyViewController: UIViewController {
   let todaysEuroRate = "2.98"
   let recieveExchangeRateDate = "6.07.2024, 15:00"
 
-  private var orders = [MyOrder]()
+  private var orders: [MyOrder] = []
+  private var activeOrders: [MyOrder] = []
+  private var inactiveOrders: [MyOrder] = []
 
   private lazy var exchangeRateTitle = createSectionTitle()
 
@@ -61,14 +63,22 @@ final class CurrencyViewController: UIViewController {
 
   private lazy var activeOrdersLabel = createOrdersLabel(isActiveOrder: true)
 
-  private lazy var inactiveOrdersLabel = createOrdersLabel(isActiveOrder: false)
-
-  private  var tableView: UITableView = {
+  private  var activeOrdersTableView: UITableView = {
     let tableView = UITableView()
     tableView.backgroundColor = .clear
     tableView.showsVerticalScrollIndicator = false
     return tableView
   }()
+
+  private lazy var inactiveOrdersLabel = createOrdersLabel(isActiveOrder: false)
+
+  private lazy var inactiveOrdersTableView: UITableView = {
+    let tableView = UITableView()
+    tableView.backgroundColor = .clear
+    tableView.showsVerticalScrollIndicator = false
+    return tableView
+  }()
+
 
   // MARK: - ViewLifeCycle
   override func viewDidLoad() {
@@ -83,7 +93,7 @@ final class CurrencyViewController: UIViewController {
     setupBackground()
     setupSubviews()
     setupConstraints()
-    setupTableView()
+    setupTableViews()
   }
 
   private func setupViewModelDelegate() {
@@ -112,9 +122,10 @@ final class CurrencyViewController: UIViewController {
     view.addSubview(addOrderView)
 
     view.addSubview(activeOrdersLabel)
-    view.addSubview(inactiveOrdersLabel)
+    view.addSubview(activeOrdersTableView)
 
-    view.addSubview(tableView)
+    view.addSubview(inactiveOrdersLabel)
+    view.addSubview(inactiveOrdersTableView)
   }
 
   private func setupConstraints() {
@@ -179,15 +190,21 @@ final class CurrencyViewController: UIViewController {
       make.leading.equalToSuperview().offset(20)
     }
 
-    tableView.snp.remakeConstraints { make in
+    activeOrdersTableView.snp.remakeConstraints { make in
       make.top.equalTo(activeOrdersLabel.snp.bottom).offset(CGFloat.spacing6)
       make.leading.trailing.equalToSuperview().inset(20)
       make.height.equalTo(100)
     }
 
     inactiveOrdersLabel.snp.remakeConstraints { make in
-      make.top.equalTo(tableView.snp.bottom).offset(CGFloat.spacing7)
+      make.top.equalTo(activeOrdersTableView.snp.bottom).offset(CGFloat.spacing7)
       make.leading.equalToSuperview().offset(20)
+    }
+
+    inactiveOrdersTableView.snp.remakeConstraints { make in
+      make.top.equalTo(inactiveOrdersLabel.snp.bottom).offset(CGFloat.spacing6)
+      make.leading.trailing.equalToSuperview().inset(20)
+      make.height.equalTo(100)
     }
   }
 
@@ -287,15 +304,21 @@ final class CurrencyViewController: UIViewController {
     return wrapperView
   }
 
-  private func setupTableView() {
-    tableView.dataSource = self
-    tableView.delegate = self
-    tableView.register(MyOrdersTableViewCell.self, forCellReuseIdentifier: "MyOrders")
+  private func setupTableViews() {
+    activeOrdersTableView.dataSource = self
+    activeOrdersTableView.delegate = self
+    activeOrdersTableView.register(MyOrderTableViewCell.self, forCellReuseIdentifier: "MyOrders")
+
+    inactiveOrdersTableView.register(MyOrderTableViewCell.self, forCellReuseIdentifier: "MyOrders")
+    inactiveOrdersTableView.delegate = self
+    inactiveOrdersTableView.dataSource = self
   }
 
-  override func viewDidLayoutSubviews() {
-      super.viewDidLayoutSubviews()
-      print("Table view frame: \(tableView.frame)")
+  private func filterOrders() {
+    activeOrders = orders.filter { $0.isActive }
+    inactiveOrders = orders.filter { !$0.isActive }
+    activeOrdersTableView.reloadData()
+    inactiveOrdersTableView.reloadData()
   }
 
   // MARK: - Actions
@@ -307,15 +330,15 @@ final class CurrencyViewController: UIViewController {
 // MARK: - Extension: TableViewDataSource
 extension CurrencyViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return orders.count
+    tableView == activeOrdersTableView ? activeOrders.count : inactiveOrders.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyOrders", for: indexPath) as? MyOrdersTableViewCell else {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyOrders", for: indexPath) as? MyOrderTableViewCell else {
       return UITableViewCell()
     }
 
-    let order = orders[indexPath.row]
+    let order = tableView == activeOrdersTableView ? activeOrders[indexPath.row] : inactiveOrders[indexPath.row]
     cell.configure(with: order)
     return cell
   }
@@ -332,9 +355,8 @@ extension CurrencyViewController: UITableViewDelegate {
 extension CurrencyViewController: CurrencyViewModelDelegate {
   func ordersFetched(_ orders: [MyOrder]) {
     self.orders = orders
-    DispatchQueue.main.async {
-        self.tableView.reloadData()
-        print("Table view content size: \(self.tableView.contentSize)")
+    DispatchQueue.main.async { [weak self] in
+      self?.filterOrders()
     }
   }
 

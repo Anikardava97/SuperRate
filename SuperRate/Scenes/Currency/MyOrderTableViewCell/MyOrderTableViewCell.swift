@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MyOrdersTableViewCell: UITableViewCell {
+final class MyOrderTableViewCell: UITableViewCell {
   // MARK: - Properties
   private var order: MyOrder?
 
