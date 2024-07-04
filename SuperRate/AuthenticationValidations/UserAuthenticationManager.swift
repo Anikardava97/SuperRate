@@ -24,6 +24,10 @@ final class UserAuthenticationManager {
     }
   }
 
+  private var currentUser: [String: String]? {
+    registeredUsers.first
+  }
+
   // MARK: - Methods
   func isEmailAlreadyRegistered(email: String) -> Bool {
     registeredUsers.contains { $0["email"] == email }
@@ -75,5 +79,21 @@ final class UserAuthenticationManager {
 
     let user = ["name": name, "code": code, "number": number, "email": email, "password": password]
     registeredUsers.append(user)
+  }
+
+  func getName() -> String? {
+    return currentUser?["name"]
+  }
+
+  func getCode() -> String? {
+    return currentUser?["code"]
+  }
+
+  func getNumber() -> String? {
+    return currentUser?["number"]
+  }
+
+  func getEmail() -> String? {
+    return currentUser?["email"]
   }
 }
