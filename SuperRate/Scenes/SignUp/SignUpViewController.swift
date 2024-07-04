@@ -14,7 +14,14 @@ protocol SignUpViewControllerDelegate: AnyObject {
 final class SignUpViewController: UIViewController {
   // MARK: - Properties
   private let viewModel = SignUpViewModel()
+
   weak var delegate: SignUpViewControllerDelegate?
+
+  private var isChecked: Bool = false {
+    didSet {
+      checkboxButton.setImage(isChecked ? UIImage(named: "checkbox.fill") : UIImage(named: "checkbox"), for: .normal)
+    }
+  }
 
   private lazy var companyNameTextField = TextFieldComponent(placeholder: "კომპანიის სახელი")
 
@@ -39,6 +46,24 @@ final class SignUpViewController: UIViewController {
   private lazy var passwordConfirmationTextField = TextFieldComponent(placeholder: "პაროლის გამეორება", isSecure: true)
 
   private lazy var passwordConfirmationErrorLabel = createErrorLabel()
+
+  private lazy var checkboxButton: UIButton = {
+    let button = UIButton()
+    button.setImage(UIImage(named: "checkbox"), for: .normal)
+    button.tintColor = .white
+    button.addTarget(self, action: #selector(checkboxButtonDidTap), for: .touchUpInside)
+    return button
+  }()
+
+  private lazy var checkboxText: UILabel = {
+    let label = UILabel()
+    label.font = .systemFont(ofSize: 12)
+    label.numberOfLines = 2
+    label.textAlignment = .left
+    label.textColor = .white
+    label.text = "ვეთანხმები აპლიკაციის გამოყენების პირობებსა და კონფიდენციალურობის პოლიტიკას"
+    return label
+  }()
 
   private lazy var signUpButton: MainButtonComponent = {
     let button = MainButtonComponent(text: "რეგისტრაცია")
@@ -92,6 +117,9 @@ final class SignUpViewController: UIViewController {
     view.addSubview(passwordConfirmationTextField)
     view.addSubview(passwordConfirmationErrorLabel)
 
+    view.addSubview(checkboxButton)
+    view.addSubview(checkboxText)
+
     view.addSubview(signUpButton)
   }
 
@@ -108,7 +136,7 @@ final class SignUpViewController: UIViewController {
     }
 
     companyIdentificationCode.snp.remakeConstraints { make in
-      make.top.equalTo(companyNameTextField.snp.bottom).offset(32)
+      make.top.equalTo(companyNameTextField.snp.bottom).offset(CGFloat.spacing5)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
@@ -119,7 +147,7 @@ final class SignUpViewController: UIViewController {
     }
 
     companyPhoneNumber.snp.remakeConstraints { make in
-      make.top.equalTo(companyIdentificationCode.snp.bottom).offset(32)
+      make.top.equalTo(companyIdentificationCode.snp.bottom).offset(CGFloat.spacing5)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
@@ -130,7 +158,7 @@ final class SignUpViewController: UIViewController {
     }
 
     emailTextField.snp.remakeConstraints { make in
-      make.top.equalTo(companyPhoneNumber.snp.bottom).offset(32)
+      make.top.equalTo(companyPhoneNumber.snp.bottom).offset(CGFloat.spacing5)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
@@ -141,7 +169,7 @@ final class SignUpViewController: UIViewController {
     }
 
     passwordTextField.snp.remakeConstraints { make in
-      make.top.equalTo(emailTextField.snp.bottom).offset(32)
+      make.top.equalTo(emailTextField.snp.bottom).offset(CGFloat.spacing5)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
@@ -152,7 +180,7 @@ final class SignUpViewController: UIViewController {
     }
 
     passwordConfirmationTextField.snp.remakeConstraints { make in
-      make.top.equalTo(passwordTextField.snp.bottom).offset(32)
+      make.top.equalTo(passwordTextField.snp.bottom).offset(CGFloat.spacing5)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
@@ -160,6 +188,18 @@ final class SignUpViewController: UIViewController {
     passwordConfirmationErrorLabel.snp.remakeConstraints { make in
       make.top.equalTo(passwordConfirmationTextField.snp.bottom).offset(6)
       make.leading.trailing.equalToSuperview()
+    }
+
+    checkboxButton.snp.remakeConstraints { make in
+      make.top.equalTo(passwordConfirmationTextField.snp.bottom).offset(CGFloat.spacing5)
+      make.leading.equalToSuperview()
+      make.size.equalTo(24)
+    }
+
+    checkboxText.snp.remakeConstraints { make in
+      make.centerY.equalTo(checkboxButton.snp.centerY)
+      make.leading.equalTo(checkboxButton.snp.trailing).offset(CGFloat.spacing8)
+      make.trailing.equalToSuperview()
     }
 
     signUpButton.snp.remakeConstraints { make in
@@ -223,8 +263,12 @@ final class SignUpViewController: UIViewController {
   }
 
   // MARK: - Actions
+  @objc private func checkboxButtonDidTap() {
+    isChecked.toggle()
+  }
+
   @objc private func signUpButtonDidTap() {
-    if viewModel.canRegisterUser() {
+    if viewModel.canRegisterUser() && isChecked == true {
       viewModel.registerUser()
       showAlert(title: "ვერიფიკაცია", message: "მითითებულ ელფოსტაზე გამოგეგზავნათ ვერიფიკაციის ბმული")
       delegate?.signUpViewControllerDidTapLogin(self)

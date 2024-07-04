@@ -13,6 +13,7 @@ final class LoginViewModel {
   }
   // MARK: - Properties
   private let authenticationManager = UserAuthenticationManager.shared
+  
   private var fieldValues: [FormFieldType: String] = [:]
 
   lazy var formState: [FormFieldType: TextFieldValidationState] = {

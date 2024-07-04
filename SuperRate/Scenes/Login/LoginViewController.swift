@@ -73,7 +73,7 @@ final class LoginViewController: UIViewController {
     }
 
     passwordTextField.snp.remakeConstraints { make in
-      make.top.equalTo(companyNameTextField.snp.bottom).offset(32)
+      make.top.equalTo(companyNameTextField.snp.bottom).offset(CGFloat.spacing5)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }

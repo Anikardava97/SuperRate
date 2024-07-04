@@ -16,6 +16,7 @@ protocol OnboardingViewControllerDelegate: AnyObject {
 final class OnboardingViewController: UIViewController {
   // MARK: - Properties
   private var buttonLabelText: String
+
   weak var delegate: OnboardingViewControllerDelegate?
 
   private lazy var mainStackView: UIStackView = {
