@@ -20,6 +20,16 @@
 		533BF1E42C35B82500435DE4 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 533BF1E32C35B82500435DE4 /* SnapKit-Dynamic */; };
 		533BF1E62C35B8B500435DE4 /* OnboardingViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1E52C35B8B500435DE4 /* OnboardingViewControllers.swift */; };
 		533BF1EA2C35CC3500435DE4 /* UserAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1E92C35CC3500435DE4 /* UserAuthenticationViewController.swift */; };
+		533BF1ED2C35CD2300435DE4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1EC2C35CD2300435DE4 /* LoginViewModel.swift */; };
+		533BF1EF2C35CD3C00435DE4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1EE2C35CD3C00435DE4 /* LoginViewController.swift */; };
+		533BF1F32C35CDBA00435DE4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1F22C35CDBA00435DE4 /* SignUpViewController.swift */; };
+		533BF1F52C35CDCA00435DE4 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1F42C35CDCA00435DE4 /* SignUpViewModel.swift */; };
+		533BF1F72C35CDFC00435DE4 /* UserAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1F62C35CDFC00435DE4 /* UserAuthenticationManager.swift */; };
+		533BF1F92C35CE1000435DE4 /* TextFieldValidationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1F82C35CE1000435DE4 /* TextFieldValidationState.swift */; };
+		533BF1FC2C35E8F800435DE4 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1FB2C35E8F800435DE4 /* TabBarController.swift */; };
+		533BF1FF2C35EC2000435DE4 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */; };
+		533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2002C35EC2900435DE4 /* ProfileViewController.swift */; };
+		533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2042C36995000435DE4 /* TextFieldComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +45,16 @@
 		533BF1DD2C35B7F300435DE4 /* MainButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonComponent.swift; sourceTree = "<group>"; };
 		533BF1E52C35B8B500435DE4 /* OnboardingViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllers.swift; sourceTree = "<group>"; };
 		533BF1E92C35CC3500435DE4 /* UserAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationViewController.swift; sourceTree = "<group>"; };
+		533BF1EC2C35CD2300435DE4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		533BF1EE2C35CD3C00435DE4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		533BF1F22C35CDBA00435DE4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		533BF1F42C35CDCA00435DE4 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		533BF1F62C35CDFC00435DE4 /* UserAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationManager.swift; sourceTree = "<group>"; };
+		533BF1F82C35CE1000435DE4 /* TextFieldValidationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidationState.swift; sourceTree = "<group>"; };
+		533BF1FB2C35E8F800435DE4 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
+		533BF2002C35EC2900435DE4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		533BF2042C36995000435DE4 /* TextFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				533BF1D12C35B2E500435DE4 /* App */,
+				533BF1FD2C35E8FE00435DE4 /* TabBar */,
+				533BF1FA2C35CE1B00435DE4 /* AuthenticationValidations */,
 				533BF1D22C35B2E900435DE4 /* Scenes */,
 				533BF1DF2C35B7F600435DE4 /* Components */,
 				533BF1D02C35B2C900435DE4 /* Resources */,
@@ -103,6 +125,10 @@
 				533BF1D52C35B31200435DE4 /* Main */,
 				533BF1D82C35B3B500435DE4 /* Onboarding */,
 				533BF1EB2C35CC4100435DE4 /* Authentication */,
+				533BF1F02C35CD4400435DE4 /* Login */,
+				533BF1F12C35CD9500435DE4 /* SignUp */,
+				533BF2022C35EC4900435DE4 /* Currency */,
+				533BF2032C35EC6600435DE4 /* Profile */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -110,8 +136,8 @@
 		533BF1D52C35B31200435DE4 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				533BF1D62C35B33E00435DE4 /* MainViewModel.swift */,
 				533BF1D32C35B30A00435DE4 /* MainViewController.swift */,
+				533BF1D62C35B33E00435DE4 /* MainViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -129,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				533BF1DD2C35B7F300435DE4 /* MainButtonComponent.swift */,
+				533BF2042C36995000435DE4 /* TextFieldComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -139,6 +166,57 @@
 				533BF1E92C35CC3500435DE4 /* UserAuthenticationViewController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		533BF1F02C35CD4400435DE4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				533BF1EE2C35CD3C00435DE4 /* LoginViewController.swift */,
+				533BF1EC2C35CD2300435DE4 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		533BF1F12C35CD9500435DE4 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				533BF1F22C35CDBA00435DE4 /* SignUpViewController.swift */,
+				533BF1F42C35CDCA00435DE4 /* SignUpViewModel.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		533BF1FA2C35CE1B00435DE4 /* AuthenticationValidations */ = {
+			isa = PBXGroup;
+			children = (
+				533BF1F62C35CDFC00435DE4 /* UserAuthenticationManager.swift */,
+				533BF1F82C35CE1000435DE4 /* TextFieldValidationState.swift */,
+			);
+			path = AuthenticationValidations;
+			sourceTree = "<group>";
+		};
+		533BF1FD2C35E8FE00435DE4 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				533BF1FB2C35E8F800435DE4 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		533BF2022C35EC4900435DE4 /* Currency */ = {
+			isa = PBXGroup;
+			children = (
+				533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */,
+			);
+			path = Currency;
+			sourceTree = "<group>";
+		};
+		533BF2032C35EC6600435DE4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				533BF2002C35EC2900435DE4 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,14 +298,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				533BF1F32C35CDBA00435DE4 /* SignUpViewController.swift in Sources */,
+				533BF1FF2C35EC2000435DE4 /* CurrencyViewController.swift in Sources */,
 				533BF1DE2C35B7F300435DE4 /* MainButtonComponent.swift in Sources */,
+				533BF1F72C35CDFC00435DE4 /* UserAuthenticationManager.swift in Sources */,
+				533BF1FC2C35E8F800435DE4 /* TabBarController.swift in Sources */,
 				533BF1E62C35B8B500435DE4 /* OnboardingViewControllers.swift in Sources */,
+				533BF1F92C35CE1000435DE4 /* TextFieldValidationState.swift in Sources */,
+				533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */,
+				533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */,
 				533BF1D42C35B30A00435DE4 /* MainViewController.swift in Sources */,
 				533BF1DC2C35B41E00435DE4 /* OnboardingViewController.swift in Sources */,
 				533BF1BA2C35A83700435DE4 /* AppDelegate.swift in Sources */,
 				533BF1BC2C35A83700435DE4 /* SceneDelegate.swift in Sources */,
 				533BF1D72C35B33E00435DE4 /* MainViewModel.swift in Sources */,
 				533BF1EA2C35CC3500435DE4 /* UserAuthenticationViewController.swift in Sources */,
+				533BF1EF2C35CD3C00435DE4 /* LoginViewController.swift in Sources */,
+				533BF1F52C35CDCA00435DE4 /* SignUpViewModel.swift in Sources */,
+				533BF1ED2C35CD2300435DE4 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

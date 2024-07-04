@@ -8,48 +8,48 @@
 import Foundation
 
 protocol MainViewModelDelegate: AnyObject {
-    func viewModel(_ viewModel: MainViewModel, didChangeScreenTo screen: MainViewModel.MainScreens)
+  func viewModel(_ viewModel: MainViewModel, didChangeScreenTo screen: MainViewModel.MainScreens)
 }
 
 final class MainViewModel {
-    enum MainScreens {
-        case onboardingScreens
-        case loginScreen
-        case application
-    }
+  enum MainScreens {
+    case onboardingScreens
+    case loginScreen
+    case application
+  }
 
-    // MARK: - Properties
-    weak var delegate: MainViewModelDelegate?
+  // MARK: - Properties
+  weak var delegate: MainViewModelDelegate?
 
-    private var currentScreen: MainScreens = .onboardingScreens {
-        didSet {
-            delegate?.viewModel(self, didChangeScreenTo: currentScreen)
-        }
+  private var currentScreen: MainScreens = .onboardingScreens {
+    didSet {
+      delegate?.viewModel(self, didChangeScreenTo: currentScreen)
     }
+  }
 
-    // MARK: - Methods
-    func viewDidLoad() {
-        let isUserLoggedIn = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
-      currentScreen = isUserLoggedIn ? .application : .onboardingScreens
-    }
+  // MARK: - Methods
+  func viewDidLoad() {
+    let isUserLoggedIn = UserDefaults.standard.bool(forKey: "isUserLoggedInm")
+    currentScreen = isUserLoggedIn ? .application : .onboardingScreens
+  }
 
-    func userDidLogOut() {
-        UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
-        currentScreen = .loginScreen
-    }
+  func userDidLogOut() {
+    UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
+    currentScreen = .loginScreen
+  }
 }
 
 // MARK: - Extension: UserAuthenticationViewControllerDelegate
-//extension MainViewModel: UserAuthenticationViewControllerDelegate {
-//    func userDidAuthenticate() {
-//        UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
-//        currentScreen = .application
-//    }
-//}
+extension MainViewModel: UserAuthenticationViewControllerDelegate {
+  func userDidAuthenticate() {
+    UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+    currentScreen = .application
+  }
+}
 
 // MARK: - Extension: OnboardingViewControllersDelegate
 extension MainViewModel: OnboardingViewControllersDelegate {
-    func onboardingDidFinish() {
-        currentScreen = .loginScreen
-    }
+  func onboardingDidFinish() {
+    currentScreen = .loginScreen
+  }
 }
