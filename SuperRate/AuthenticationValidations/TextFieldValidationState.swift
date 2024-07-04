@@ -15,7 +15,8 @@ struct TextFieldValidationState {
   enum TextFieldValidationError: String {
     case empty = "ფორმა არ უნდა იყოს ცარიელი"
     case alreadyRegistered = "ელფოსტა უკვე რეგისტრირებულია"
-    case invalid = "ელფოსტა არავალიდურია"
+    case invalidEmail = "ელფოსტა არავალიდურია"
+    case invalidNumber = "ნომერი არავალიდურია"
     case passwordRequirements = "პაროლი უნდა შეიცავდეს მინიმუმ 12 სიმბოლოს"
     case passwordMismatch = "პაროლები არ ემთხვევა ერთმანეთს"
     case nameRequirements = "სახელი უნდა შეიცავდეს მინიმუმ 4 სიმბოლოს"

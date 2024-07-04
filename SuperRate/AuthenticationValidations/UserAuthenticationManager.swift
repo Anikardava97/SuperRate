@@ -13,7 +13,7 @@ final class UserAuthenticationManager {
 
   // MARK: - Private Init
   private init() {}
-  
+
   // MARK: - Properties
   private var registeredUsers: [[String: String]] {
     get {
@@ -36,6 +36,16 @@ final class UserAuthenticationManager {
       return true
     }
     return false
+  }
+
+  func validateNumber(_ number: String) -> Bool {
+    guard number.count == 9 else { return false }
+
+    guard number.first == "5" else { return false }
+
+    let numberRegEx = "^[5][0-9]{8}$"
+    let numberTest = NSPredicate(format: "SELF MATCHES %@", numberRegEx)
+    return numberTest.evaluate(with: number)
   }
 
   func validateEmail(_ email: String) -> Bool {

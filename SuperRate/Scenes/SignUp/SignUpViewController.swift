@@ -255,9 +255,11 @@ final class SignUpViewController: UIViewController {
     return label
   }
 
-  private func showAlert(title: String, message: String) {
-    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+  private func showVerificationAlert() {
+    let alertController = UIAlertController(title: "ვერიფიკაცია", message: "მითითებულ ელფოსტაზე გამოგეგზავნათ ვერიფიკაციის ბმული", preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "Ok", style: .default) { [weak self] _ in
+      self?.delegate?.signUpViewControllerDidTapLogin(self!)
+    }
     alertController.addAction(okAction)
     present(alertController, animated: true, completion: nil)
   }
@@ -270,8 +272,7 @@ final class SignUpViewController: UIViewController {
   @objc private func signUpButtonDidTap() {
     if viewModel.canRegisterUser() && isChecked == true {
       viewModel.registerUser()
-      showAlert(title: "ვერიფიკაცია", message: "მითითებულ ელფოსტაზე გამოგეგზავნათ ვერიფიკაციის ბმული")
-      delegate?.signUpViewControllerDidTapLogin(self)
+      showVerificationAlert()
     } else {
       updateFormState()
       updateUIForAllFields()

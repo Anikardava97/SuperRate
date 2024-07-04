@@ -66,6 +66,8 @@ final class SignUpViewModel {
   private func validateNumber(text: String) -> TextFieldValidationState {
     if text.isEmpty {
       return TextFieldValidationState(state: .error, error: .empty)
+    } else if !isValidNumber(text) {
+      return TextFieldValidationState(state: .error, error: .invalidNumber)
     } else {
       return TextFieldValidationState(state: .valid)
     }
@@ -77,7 +79,7 @@ final class SignUpViewModel {
     } else if isEmailAlreadyRegistered(text) {
       return TextFieldValidationState(state: .error, error: .alreadyRegistered)
     } else if !isValidEmail(text) {
-      return TextFieldValidationState(state: .error, error: .invalid)
+      return TextFieldValidationState(state: .error, error: .invalidEmail)
     } else {
       return TextFieldValidationState(state: .valid)
     }
@@ -111,6 +113,10 @@ final class SignUpViewModel {
     authenticationManager.validateName(name)
   }
 
+  private func isValidNumber(_ number: String) -> Bool {
+    authenticationManager.validateNumber(number)
+  }
+  
   private func isValidEmail(_ email: String) -> Bool {
     authenticationManager.validateEmail(email) && !authenticationManager.isEmailAlreadyRegistered(email: email)
   }
