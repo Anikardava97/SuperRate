@@ -37,20 +37,25 @@ final class MainViewController: UIViewController {
   }
 
   private func addChildViewController(_ child: UIViewController, toView view: UIView) {
-    animateFadeTransition(to: child)
-  }
+    addChild(child)
+    child.view.frame = view.bounds
+    child.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    child.view.alpha = 0
 
-  private func animateFadeTransition(to new: UIViewController, completion: (() -> Void)? = nil) {
-    let current = self.currentChild
-    addChild(new)
+    view.addSubview(child.view)
 
-    transition(from: current, to: new, duration: 0.5, options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
-    }, completion: { _ in
-      current.removeFromParent()
-      new.didMove(toParent: self)
-      self.currentChild = new
-      completion?()
-    })
+    UIView.animate(withDuration: 0.3, animations: {
+      self.currentChild.view.alpha = 0
+      child.view.alpha = 1
+    }) { _ in
+      self.currentChild.willMove(toParent: nil)
+      self.currentChild.view.removeFromSuperview()
+      self.currentChild.removeFromParent()
+
+      child.didMove(toParent: self)
+
+      self.currentChild = child
+    }
   }
 
   private func presentOnboardingViewController() {
@@ -58,7 +63,7 @@ final class MainViewController: UIViewController {
     onboardingViewControllers.delegate = viewModel
     addChildViewController(onboardingViewControllers, toView: self.view)
   }
-  
+
   private func presentLoginViewController() {
     let registerViewController = UserAuthenticationViewController()
     registerViewController.delegate = viewModel
