@@ -10,19 +10,52 @@ import UIKit
 final class CurrencyViewController: UIViewController {
   // MARK: - Properties
   let viewModel = CurrencyViewModel()
+  let todaysDollarRate = "2.785"
+  let todaysEuroRate = "2.98"
+  let recieveExchangeRateDate = "6.07.2024, 15:00"
 
   private lazy var exchangeRateTitle = createSectionTitle()
 
   private lazy var dollarWrapperView = createCurrencyWrapperView()
   private lazy var dollarContainerHeader = createCurrencySignHeader(currency: "dollarsign")
-  private lazy var dollarExchangeRate = createExchangeRateLabel(currency: "$", rate: "2.8")
+  private lazy var dollarExchangeRate = createExchangeRateLabel(currency: "$", rate: todaysDollarRate)
   private lazy var dollarGraphImageView = createGraphImageView(currency: "graph.dollar")
 
   private lazy var euroWrapperView = createCurrencyWrapperView()
   private lazy var euroContainerHeader = createCurrencySignHeader(currency: "eurosign")
-  private lazy var euroExchangeRate = createExchangeRateLabel(currency: "€", rate: "2.8")
+  private lazy var euroExchangeRate = createExchangeRateLabel(currency: "€", rate: todaysEuroRate)
   private lazy var euroGraphImageView = createGraphImageView(currency: "graph.euro")
 
+  private lazy var exchangeRateDateLabel: UILabel = {
+    let label = UILabel()
+    label.font = .systemFont(ofSize: 12, weight: .light)
+    label.textColor = .white
+    label.text = "ბოლო განახლება: " + recieveExchangeRateDate
+    return label
+  }()
+
+  private lazy var addOrderView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "border.shape")
+    imageView.contentMode = .scaleAspectFit
+    imageView.isUserInteractionEnabled = true
+
+    let label = UILabel()
+    label.text = "+ ორდერის დამატება"
+    label.font = .systemFont(ofSize: 14, weight: .medium)
+    label.textColor = .white
+
+    imageView.addSubview(label)
+
+    label.snp.remakeConstraints { make in
+      make.centerX.centerY.equalToSuperview()
+    }
+
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addOrderDidTap))
+    imageView.addGestureRecognizer(tapGesture)
+
+    return imageView
+  }()
 
   // MARK: - ViewLifeCycle
   override func viewDidLoad() {
@@ -53,6 +86,10 @@ final class CurrencyViewController: UIViewController {
     euroWrapperView.addSubview(euroContainerHeader)
     euroWrapperView.addSubview(euroExchangeRate)
     euroWrapperView.addSubview(euroGraphImageView)
+
+    view.addSubview(exchangeRateDateLabel)
+
+    view.addSubview(addOrderView)
   }
 
   private func setupConstraints() {
@@ -100,11 +137,22 @@ final class CurrencyViewController: UIViewController {
     euroGraphImageView.snp.remakeConstraints { make in
       make.leading.trailing.bottom.equalToSuperview()
     }
+
+    exchangeRateDateLabel.snp.remakeConstraints { make in
+      make.top.equalTo(dollarWrapperView.snp.bottom).offset(CGFloat.spacing7)
+      make.leading.equalToSuperview().offset(20)
+    }
+
+    addOrderView.snp.remakeConstraints { make in
+      make.top.equalTo(exchangeRateDateLabel.snp.bottom).offset(CGFloat.spacing7)
+      make.leading.trailing.equalToSuperview().inset(20)
+      make.height.equalTo(130)
+    }
   }
 
   private func createSectionTitle() -> UILabel {
     let label = UILabel()
-    label.font = UIFont.systemFont(ofSize: 14)
+    label.font = UIFont.systemFont(ofSize: 16)
     label.textColor = .white
     label.text = "ვალუტის კურსი"
     return label
@@ -155,7 +203,7 @@ final class CurrencyViewController: UIViewController {
 
     return wrapperView
   }
-  
+
   private func createExchangeRateLabel(currency: String, rate: String) -> UILabel {
     let label = UILabel()
     label.textColor = .white
@@ -169,4 +217,11 @@ final class CurrencyViewController: UIViewController {
     imageView.image = UIImage(named: currency)
     return imageView
   }
+
+  // MARK: - Actions
+  @objc func addOrderDidTap() {
+    print("tapped")
+  }
 }
+
+
