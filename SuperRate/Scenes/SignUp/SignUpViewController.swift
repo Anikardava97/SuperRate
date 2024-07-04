@@ -36,6 +36,10 @@ final class SignUpViewController: UIViewController {
 
   private lazy var passwordErrorLabel = createErrorLabel()
 
+  private lazy var passwordConfirmationTextField = TextFieldComponent(placeholder: "პაროლის გამეორება", isSecure: true)
+
+  private lazy var passwordConfirmationErrorLabel = createErrorLabel()
+
   private lazy var signUpButton: MainButtonComponent = {
     let button = MainButtonComponent(text: "რეგისტრაცია")
     button.addTarget(self, action: #selector(signUpButtonDidTap), for: .touchUpInside)
@@ -54,6 +58,7 @@ final class SignUpViewController: UIViewController {
     updateUI(for: companyPhoneNumber, fieldType: .number)
     updateUI(for: emailTextField, fieldType: .email)
     updateUI(for: passwordTextField, fieldType: .password)
+    updateUI(for: passwordConfirmationTextField, fieldType: .confirmPassword)
   }
 
   // MARK: - Methods
@@ -61,7 +66,6 @@ final class SignUpViewController: UIViewController {
     setupBackground()
     setupSubviews()
     setupConstraints()
-    setupTextFieldDelegates()
     setupTapGesture()
   }
 
@@ -84,6 +88,9 @@ final class SignUpViewController: UIViewController {
 
     view.addSubview(passwordTextField)
     view.addSubview(passwordErrorLabel)
+
+    view.addSubview(passwordConfirmationTextField)
+    view.addSubview(passwordConfirmationErrorLabel)
 
     view.addSubview(signUpButton)
   }
@@ -121,7 +128,7 @@ final class SignUpViewController: UIViewController {
       make.top.equalTo(companyPhoneNumber.snp.bottom).offset(6)
       make.leading.trailing.equalToSuperview()
     }
-    
+
     emailTextField.snp.remakeConstraints { make in
       make.top.equalTo(companyPhoneNumber.snp.bottom).offset(32)
       make.leading.trailing.equalToSuperview()
@@ -144,19 +151,22 @@ final class SignUpViewController: UIViewController {
       make.leading.trailing.equalToSuperview()
     }
 
+    passwordConfirmationTextField.snp.remakeConstraints { make in
+      make.top.equalTo(passwordTextField.snp.bottom).offset(32)
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(48)
+    }
+
+    passwordConfirmationErrorLabel.snp.remakeConstraints { make in
+      make.top.equalTo(passwordConfirmationTextField.snp.bottom).offset(6)
+      make.leading.trailing.equalToSuperview()
+    }
+
     signUpButton.snp.remakeConstraints { make in
       make.leading.trailing.equalToSuperview()
       make.bottom.equalToSuperview()
       make.height.equalTo(48)
     }
-  }
-
-  private func setupTextFieldDelegates() {
-    companyNameTextField.delegate = self
-    companyIdentificationCode.delegate = self
-    companyPhoneNumber.delegate = self
-    emailTextField.delegate = self
-    passwordTextField.delegate = self
   }
 
   private func setupTapGesture() {
@@ -186,6 +196,7 @@ final class SignUpViewController: UIViewController {
     viewModel.textFieldDidUpdate(type: .number, text: companyPhoneNumber.text ?? "")
     viewModel.textFieldDidUpdate(type: .email, text: emailTextField.text ?? "")
     viewModel.textFieldDidUpdate(type: .password, text: passwordTextField.text ?? "")
+    viewModel.textFieldDidUpdate(type: .confirmPassword, text: passwordConfirmationTextField.text ?? "")
   }
 
   private func updateUIForAllFields() {
@@ -194,6 +205,7 @@ final class SignUpViewController: UIViewController {
     updateUI(for: companyPhoneNumber, fieldType: .number, errorLabel: companyPhoneNumberErrorLabel)
     updateUI(for: emailTextField, fieldType: .email, errorLabel: emailErrorLabel)
     updateUI(for: passwordTextField, fieldType: .password, errorLabel: passwordErrorLabel)
+    updateUI(for: passwordConfirmationTextField, fieldType: .confirmPassword, errorLabel: passwordConfirmationErrorLabel)
   }
 
   private func createErrorLabel() -> UILabel {
@@ -203,10 +215,18 @@ final class SignUpViewController: UIViewController {
     return label
   }
 
+  private func showAlert(title: String, message: String) {
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+    alertController.addAction(okAction)
+    present(alertController, animated: true, completion: nil)
+  }
+
   // MARK: - Actions
   @objc private func signUpButtonDidTap() {
     if viewModel.canRegisterUser() {
       viewModel.registerUser()
+      showAlert(title: "ვერიფიკაცია", message: "მითითებულ ელფოსტაზე გამოგეგზავნათ ვერიფიკაციის ბმული")
       delegate?.signUpViewControllerDidTapLogin(self)
     } else {
       updateFormState()
@@ -216,13 +236,5 @@ final class SignUpViewController: UIViewController {
 
   @objc private func dismissKeyboard() {
     view.endEditing(true)
-  }
-}
-
-// MARK: - Extension: UITextFieldDelegate
-extension SignUpViewController: UITextFieldDelegate {
-  func textFieldDidEndEditing(_ textField: UITextField) {
-    updateFormState()
-    updateUIForAllFields()
   }
 }

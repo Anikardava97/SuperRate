@@ -16,7 +16,9 @@ struct TextFieldValidationState {
     case empty = "ფორმა არ უნდა იყოს ცარიელი"
     case alreadyRegistered = "ელფოსტა უკვე რეგისტრირებულია"
     case invalid = "ელფოსტა არავალიდურია"
-    case passwordRequirements = "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს"
+    case passwordRequirements = "პაროლი უნდა შეიცავდეს მინიმუმ 12 სიმბოლოს"
+    case passwordMismatch = "პაროლები არ ემთხვევა ერთმანეთს"
+    case nameRequirements = "სახელი უნდა შეიცავდეს მინიმუმ 4 სიმბოლოს"
     case defaultCase = ""
   }
 

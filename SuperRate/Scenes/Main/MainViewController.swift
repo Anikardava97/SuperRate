@@ -58,7 +58,7 @@ final class MainViewController: UIViewController {
     onboardingViewControllers.delegate = viewModel
     addChildViewController(onboardingViewControllers, toView: self.view)
   }
-
+  
   private func presentLoginViewController() {
     let registerViewController = UserAuthenticationViewController()
     registerViewController.delegate = viewModel

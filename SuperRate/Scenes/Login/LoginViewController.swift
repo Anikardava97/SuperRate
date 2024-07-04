@@ -18,9 +18,9 @@ final class LoginViewController: UIViewController {
   private let viewModel = LoginViewModel()
   weak var delegate: LoginViewControllerDelegate?
 
-  private lazy var emailTextField = TextFieldComponent(placeholder: "ელფოსტა")
+  private lazy var companyNameTextField = TextFieldComponent(placeholder: "კომპანიის სახელი")
 
-  private lazy var emailErrorLabel = createErrorLabel()
+  private lazy var companyNameErrorLabel = createErrorLabel()
 
   private lazy var passwordTextField = TextFieldComponent(placeholder: "პაროლი", isSecure: true)
 
@@ -39,7 +39,7 @@ final class LoginViewController: UIViewController {
   }
 
   override func viewDidLayoutSubviews() {
-    updateUI(for: emailTextField, fieldType: .email)
+    updateUI(for: companyNameTextField, fieldType: .name)
     updateUI(for: passwordTextField, fieldType: .password)
   }
 
@@ -47,13 +47,12 @@ final class LoginViewController: UIViewController {
   private func setup() {
     setupSubviews()
     setupConstraints()
-    setupTextFieldDelegates()
     setupTapGesture()
   }
 
   private func setupSubviews() {
-    view.addSubview(emailTextField)
-    view.addSubview(emailErrorLabel)
+    view.addSubview(companyNameTextField)
+    view.addSubview(companyNameErrorLabel)
 
     view.addSubview(passwordTextField)
     view.addSubview(passwordErrorLabel)
@@ -62,19 +61,19 @@ final class LoginViewController: UIViewController {
   }
 
   private func setupConstraints() {
-    emailTextField.snp.remakeConstraints { make in
+    companyNameTextField.snp.remakeConstraints { make in
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
 
-    emailErrorLabel.snp.remakeConstraints { make in
-      make.top.equalTo(emailTextField.snp.bottom).offset(6)
+    companyNameErrorLabel.snp.remakeConstraints { make in
+      make.top.equalTo(companyNameTextField.snp.bottom).offset(6)
       make.leading.trailing.equalToSuperview()
     }
 
     passwordTextField.snp.remakeConstraints { make in
-      make.top.equalTo(emailTextField.snp.bottom).offset(32)
+      make.top.equalTo(companyNameTextField.snp.bottom).offset(32)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
@@ -89,11 +88,6 @@ final class LoginViewController: UIViewController {
       make.bottom.equalToSuperview()
       make.height.equalTo(48)
     }
-  }
-
-  private func setupTextFieldDelegates() {
-    emailTextField.delegate = self
-    passwordTextField.delegate = self
   }
 
   private func setupTapGesture() {
@@ -118,12 +112,12 @@ final class LoginViewController: UIViewController {
   }
 
   private func updateFormState() {
-    viewModel.textFieldDidUpdate(type: .email, text: emailTextField.text ?? "")
+    viewModel.textFieldDidUpdate(type: .name, text: companyNameTextField.text ?? "")
     viewModel.textFieldDidUpdate(type: .password, text: passwordTextField.text ?? "")
   }
 
   private func updateUIForAllFields() {
-    updateUI(for: emailTextField, fieldType: .email, errorLabel: emailErrorLabel)
+    updateUI(for: companyNameTextField, fieldType: .name, errorLabel: companyNameErrorLabel)
     updateUI(for: passwordTextField, fieldType: .password, errorLabel: passwordErrorLabel)
   }
 
@@ -143,28 +137,21 @@ final class LoginViewController: UIViewController {
 
   // MARK: - Actions
   @objc private func loginButtonDidTap() {
-    guard let email = emailTextField.text,
-          let password = passwordTextField.text else {
+    guard
+      let companyName = companyNameTextField.text,
+      let password = passwordTextField.text else {
       return
     }
     updateFormState()
     updateUIForAllFields()
-    if viewModel.loginUser(email: email, password: password) {
+    if viewModel.loginCompany(name: companyName, password: password) {
       delegate?.loginViewControllerDidTapLogin(self)
     } else {
-      showAlert(title: "ვერ გაიარეთ ავტორიზაცია", message: "ელფოსტა ან პაროლი არასწორია. \n კიდევ სცადეთ.")
+      showAlert(title: "ვერ გაიარეთ ავტორიზაცია", message: "სახელი ან პაროლი არასწორია. \n კიდევ სცადეთ.")
     }
   }
 
   @objc private func dismissKeyboard() {
     view.endEditing(true)
-  }
-}
-
-// MARK: - Extension: UITextFieldDelegate
-extension LoginViewController: UITextFieldDelegate {
-  func textFieldDidEndEditing(_ textField: UITextField) {
-    updateFormState()
-    updateUIForAllFields()
   }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 final class LoginViewModel {
   enum FormFieldType: CaseIterable {
-    case email, password
+    case name, password
   }
   // MARK: - Properties
   private let authenticationManager = UserAuthenticationManager.shared
@@ -24,19 +24,19 @@ final class LoginViewModel {
     fieldValues[type] = text
     let newState: TextFieldValidationState
     switch type {
-    case .email:
-      newState = validateEmail(text: text)
+    case .name:
+      newState = validateName(text: text)
     case .password:
       newState = validatePassword(text: text)
     }
     formState[type] = newState
   }
 
-  private func validateEmail(text: String) -> TextFieldValidationState {
+  private func validateName(text: String) -> TextFieldValidationState {
     if text.isEmpty {
       return TextFieldValidationState(state: .error, error: .empty)
-    } else if !isValidEmail(text) {
-      return TextFieldValidationState(state: .error, error: .invalid)
+    } else if !isValidName(text) {
+      return TextFieldValidationState(state: .error, error: .nameRequirements)
     } else {
       return TextFieldValidationState(state: .valid)
     }
@@ -52,20 +52,20 @@ final class LoginViewModel {
     }
   }
 
-  private func isValidEmail(_ email: String) -> Bool {
-    authenticationManager.validateEmail(email)
+  private func isValidName(_ name: String) -> Bool {
+    authenticationManager.validateName(name)
   }
 
   private func isValidPassword(_ password: String) -> Bool {
     authenticationManager.validatePassword(password)
   }
 
-  func loginUser(email: String, password: String) -> Bool {
-    let registeredUsers = UserDefaults.standard.array(forKey: "registeredUsers") as? [[String: String]] ?? []
+  func loginCompany(name: String, password: String) -> Bool {
+    let registeredCompanies = UserDefaults.standard.array(forKey: "registeredCompanies") as? [[String: String]] ?? []
 
-    for user in registeredUsers {
-      if let userEmail = user["email"], let userPassword = user["password"] {
-        if userEmail == email && userPassword == password {
+    for company in registeredCompanies {
+      if let companyName = company["name"], let companyPassword = company["password"] {
+        if companyName == name && companyPassword == password {
           return true
         }
       }

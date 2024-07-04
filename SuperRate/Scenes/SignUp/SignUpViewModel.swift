@@ -9,7 +9,7 @@ import Foundation
 
 final class SignUpViewModel {
   enum FormFieldType: CaseIterable {
-    case name, code, number, email, password
+    case name, code, number, email, password, confirmPassword
   }
   // MARK: - Properties
   private let authenticationManager = UserAuthenticationManager.shared
@@ -34,13 +34,21 @@ final class SignUpViewModel {
       newState = validateEmail(text: text)
     case .password:
       newState = validatePassword(text: text)
+    case .confirmPassword:
+      newState = validatePasswordsMatch(text: text)
     }
     formState[type] = newState
+
+    if type == .password {
+      formState[.confirmPassword] = validatePasswordsMatch(text: fieldValues[.confirmPassword] ?? "")
+    }
   }
 
   private func validateName(text: String) -> TextFieldValidationState {
     if text.isEmpty {
       return TextFieldValidationState(state: .error, error: .empty)
+    } else if !isValidName(text) {
+      return TextFieldValidationState(state: .error, error: .nameRequirements)
     } else {
       return TextFieldValidationState(state: .valid)
     }
@@ -82,6 +90,24 @@ final class SignUpViewModel {
     } else {
       return TextFieldValidationState(state: .valid)
     }
+  }
+
+  private func validatePasswordsMatch(text: String) -> TextFieldValidationState {
+    guard let password = fieldValues[.password] else {
+      return TextFieldValidationState(state: .error, error: .empty)
+    }
+
+    if text.isEmpty {
+      return TextFieldValidationState(state: .error, error: .empty)
+    } else if text != password {
+      return TextFieldValidationState(state: .error, error: .passwordMismatch)
+    } else {
+      return TextFieldValidationState(state: .valid)
+    }
+  }
+
+  private func isValidName(_ name: String) -> Bool {
+    authenticationManager.validateName(name)
   }
 
   private func isValidEmail(_ email: String) -> Bool {

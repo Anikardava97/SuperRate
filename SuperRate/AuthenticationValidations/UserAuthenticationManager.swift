@@ -13,20 +13,29 @@ final class UserAuthenticationManager {
 
   // MARK: - Private Init
   private init() {}
-
+  
   // MARK: - Properties
   private var registeredUsers: [[String: String]] {
     get {
-      UserDefaults.standard.array(forKey: "registeredUsers") as? [[String: String]] ?? []
+      UserDefaults.standard.array(forKey: "registeredCompanies") as? [[String: String]] ?? []
     }
     set {
-      UserDefaults.standard.set(newValue, forKey: "registeredUsers")
+      UserDefaults.standard.set(newValue, forKey: "registeredCompanies")
     }
   }
 
   // MARK: - Methods
   func isEmailAlreadyRegistered(email: String) -> Bool {
     registeredUsers.contains { $0["email"] == email }
+  }
+
+  func validateName(_ name: String) -> Bool {
+    let isValidLength = name.count >= 4 && name.count <= 20
+
+    if isValidLength {
+      return true
+    }
+    return false
   }
 
   func validateEmail(_ email: String) -> Bool {
@@ -39,14 +48,14 @@ final class UserAuthenticationManager {
     let symbolsCharacterSet = CharacterSet(charactersIn: "!@#$%^&*()_+=-{}[]|\\:;\"'<>,.?/~`")
     let passwordRange = password.rangeOfCharacter(from: symbolsCharacterSet)
 
-    let isValidLength = password.count >= 6 && password.count <= 12
+    let isValidLength = password.count >= 12 && password.count <= 20
     let containsSymbol = passwordRange != nil
 
     return isValidLength && containsSymbol
   }
 
   func registerUser(name: String, code: String, number: String, email: String, password: String) {
-    guard validateEmail(email), validatePassword(password) else {
+    guard validateName(name), validateEmail(email), validatePassword(password) else {
       return
     }
 
