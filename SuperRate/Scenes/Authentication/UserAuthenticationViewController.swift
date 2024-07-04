@@ -100,7 +100,7 @@ final class UserAuthenticationViewController: UIViewController {
 
   private func setupConstraints() {
     segmentedControl.snp.remakeConstraints { make in
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(140)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
       make.leading.equalToSuperview().offset(20)
       make.trailing.equalToSuperview().offset(-20)
       make.height.equalTo(44)
@@ -108,8 +108,7 @@ final class UserAuthenticationViewController: UIViewController {
 
     containerView.snp.remakeConstraints { make in
       make.top.equalTo(segmentedControl.snp.bottom).offset(40)
-      make.leading.equalToSuperview().offset(20)
-      make.trailing.equalToSuperview().offset(-20)
+      make.leading.trailing.equalToSuperview().inset(20)
       make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
     }
   }

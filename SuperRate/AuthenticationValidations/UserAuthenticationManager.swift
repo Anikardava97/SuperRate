@@ -45,7 +45,7 @@ final class UserAuthenticationManager {
     return isValidLength && containsSymbol
   }
 
-  func registerUser(email: String, password: String) {
+  func registerUser(name: String, code: String, number: String, email: String, password: String) {
     guard validateEmail(email), validatePassword(password) else {
       return
     }
@@ -54,7 +54,7 @@ final class UserAuthenticationManager {
       return
     }
 
-    let user = ["email": email, "password": password]
+    let user = ["name": name, "code": code, "number": number, "email": email, "password": password]
     registeredUsers.append(user)
   }
 }

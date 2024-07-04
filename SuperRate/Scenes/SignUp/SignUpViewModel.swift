@@ -9,7 +9,7 @@ import Foundation
 
 final class SignUpViewModel {
   enum FormFieldType: CaseIterable {
-    case email, password
+    case name, code, number, email, password
   }
   // MARK: - Properties
   private let authenticationManager = UserAuthenticationManager.shared
@@ -24,12 +24,42 @@ final class SignUpViewModel {
     fieldValues[type] = text
     let newState: TextFieldValidationState
     switch type {
+    case .name:
+      newState = validateName(text: text)
+    case .code:
+      newState = validateCode(text: text)
+    case .number:
+      newState = validateNumber(text: text)
     case .email:
       newState = validateEmail(text: text)
     case .password:
       newState = validatePassword(text: text)
     }
     formState[type] = newState
+  }
+
+  private func validateName(text: String) -> TextFieldValidationState {
+    if text.isEmpty {
+      return TextFieldValidationState(state: .error, error: .empty)
+    } else {
+      return TextFieldValidationState(state: .valid)
+    }
+  }
+
+  private func validateCode(text: String) -> TextFieldValidationState {
+    if text.isEmpty {
+      return TextFieldValidationState(state: .error, error: .empty)
+    } else {
+      return TextFieldValidationState(state: .valid)
+    }
+  }
+
+  private func validateNumber(text: String) -> TextFieldValidationState {
+    if text.isEmpty {
+      return TextFieldValidationState(state: .error, error: .empty)
+    } else {
+      return TextFieldValidationState(state: .valid)
+    }
   }
 
   private func validateEmail(text: String) -> TextFieldValidationState {
@@ -54,14 +84,6 @@ final class SignUpViewModel {
     }
   }
 
-  private func validateAge(text: String) -> TextFieldValidationState {
-    if text.isEmpty {
-      return TextFieldValidationState(state: .error, error: .empty)
-    } else {
-      return TextFieldValidationState(state: .valid)
-    }
-  }
-
   private func isValidEmail(_ email: String) -> Bool {
     authenticationManager.validateEmail(email) && !authenticationManager.isEmailAlreadyRegistered(email: email)
   }
@@ -79,11 +101,15 @@ final class SignUpViewModel {
   }
 
   func registerUser() {
-    guard let email = fieldValues[.email],
-          let password = fieldValues[.password],
-          canRegisterUser() else {
+    guard
+      let name = fieldValues[.name],
+      let code = fieldValues[.code],
+      let number = fieldValues[.number],
+      let email = fieldValues[.email],
+      let password = fieldValues[.password],
+      canRegisterUser() else {
       return
     }
-    authenticationManager.registerUser(email: email, password: password)
+    authenticationManager.registerUser(name: name, code: code, number: number, email: email, password: password)
   }
 }

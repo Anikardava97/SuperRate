@@ -16,62 +16,25 @@ final class SignUpViewController: UIViewController {
   private let viewModel = SignUpViewModel()
   weak var delegate: SignUpViewControllerDelegate?
 
-  private lazy var emailTextField: UITextField = {
-    let textField = UITextField()
-    textField.keyboardType = .default
-    textField.layer.borderWidth = 1.0
-    textField.layer.cornerRadius = 8
-    textField.textColor = .white
+  private lazy var companyNameTextField = TextFieldComponent(placeholder: "კომპანიის სახელი")
 
-    textField.attributedPlaceholder = NSAttributedString(
-      string: "ელფოსტა",
-      attributes: [
-        NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.8),
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
-      ]
-    )
+  private lazy var companyNameErrorLabel = createErrorLabel()
 
-    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
-    textField.leftView = paddingView
-    textField.leftViewMode = .always
-    return textField
-  }()
+  private lazy var companyIdentificationCode = TextFieldComponent(placeholder: "საიდენტიფიკაციო კოდი", keyboard: .numberPad)
 
-  private let emailErrorLabel: UILabel = {
-    let label = UILabel()
-    label.textColor = .red
-    label.font = UIFont.regularTitle4
-    return label
-  }()
+  private lazy var companyCodeErrorLabel = createErrorLabel()
 
-  private lazy var passwordTextField: UITextField = {
-    let textField = UITextField()
-    textField.isSecureTextEntry = true
-    textField.keyboardType = .default
-    textField.layer.borderWidth = 1.0
-    textField.layer.cornerRadius = 8
-    textField.textColor = .white
+  private lazy var companyPhoneNumber = TextFieldComponent(placeholder: "მობილურის ნომერი", keyboard: .numberPad)
 
-    textField.attributedPlaceholder = NSAttributedString(
-      string: "პაროლი",
-      attributes: [
-        NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.8),
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
-      ]
-    )
+  private lazy var companyPhoneNumberErrorLabel = createErrorLabel()
 
-    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
-    textField.leftView = paddingView
-    textField.leftViewMode = .always
-    return textField
-  }()
+  private lazy var emailTextField = TextFieldComponent(placeholder: "ელფოსტა")
 
-  private let passwordErrorLabel: UILabel = {
-    let label = UILabel()
-    label.textColor = .red
-    label.font = UIFont.regularTitle4
-    return label
-  }()
+  private lazy var emailErrorLabel = createErrorLabel()
+
+  private lazy var passwordTextField = TextFieldComponent(placeholder: "პაროლი", isSecure: true)
+
+  private lazy var passwordErrorLabel = createErrorLabel()
 
   private lazy var signUpButton: MainButtonComponent = {
     let button = MainButtonComponent(text: "რეგისტრაცია")
@@ -86,6 +49,9 @@ final class SignUpViewController: UIViewController {
   }
 
   override func viewDidLayoutSubviews() {
+    updateUI(for: companyNameTextField, fieldType: .name)
+    updateUI(for: companyIdentificationCode, fieldType: .code)
+    updateUI(for: companyPhoneNumber, fieldType: .number)
     updateUI(for: emailTextField, fieldType: .email)
     updateUI(for: passwordTextField, fieldType: .password)
   }
@@ -104,6 +70,15 @@ final class SignUpViewController: UIViewController {
   }
 
   private func setupSubviews() {
+    view.addSubview(companyNameTextField)
+    view.addSubview(companyNameErrorLabel)
+
+    view.addSubview(companyIdentificationCode)
+    view.addSubview(companyCodeErrorLabel)
+
+    view.addSubview(companyPhoneNumber)
+    view.addSubview(companyPhoneNumberErrorLabel)
+
     view.addSubview(emailTextField)
     view.addSubview(emailErrorLabel)
 
@@ -114,54 +89,72 @@ final class SignUpViewController: UIViewController {
   }
 
   private func setupConstraints() {
-    emailTextField.snp.remakeConstraints { make in
+    companyNameTextField.snp.remakeConstraints { make in
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(48)
+    }
+
+    companyNameErrorLabel.snp.remakeConstraints { make in
+      make.top.equalTo(companyNameTextField.snp.bottom).offset(6)
+      make.leading.trailing.equalToSuperview()
+    }
+
+    companyIdentificationCode.snp.remakeConstraints { make in
+      make.top.equalTo(companyNameTextField.snp.bottom).offset(32)
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(48)
+    }
+
+    companyCodeErrorLabel.snp.remakeConstraints { make in
+      make.top.equalTo(companyIdentificationCode.snp.bottom).offset(6)
+      make.leading.trailing.equalToSuperview()
+    }
+
+    companyPhoneNumber.snp.remakeConstraints { make in
+      make.top.equalTo(companyIdentificationCode.snp.bottom).offset(32)
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(48)
+    }
+
+    companyPhoneNumberErrorLabel.snp.remakeConstraints { make in
+      make.top.equalTo(companyPhoneNumber.snp.bottom).offset(6)
+      make.leading.trailing.equalToSuperview()
+    }
+    
+    emailTextField.snp.remakeConstraints { make in
+      make.top.equalTo(companyPhoneNumber.snp.bottom).offset(32)
+      make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
 
     emailErrorLabel.snp.remakeConstraints { make in
       make.top.equalTo(emailTextField.snp.bottom).offset(6)
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
+      make.leading.trailing.equalToSuperview()
     }
 
     passwordTextField.snp.remakeConstraints { make in
       make.top.equalTo(emailTextField.snp.bottom).offset(32)
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
+      make.leading.trailing.equalToSuperview()
       make.height.equalTo(48)
     }
 
     passwordErrorLabel.snp.remakeConstraints { make in
       make.top.equalTo(passwordTextField.snp.bottom).offset(6)
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
+      make.leading.trailing.equalToSuperview()
     }
 
-    //        ageTextField.snp.remakeConstraints { make in
-    //            make.top.equalTo(passwordTextField.snp.bottom).offset(32)
-    //            make.leading.equalToSuperview()
-    //            make.trailing.equalToSuperview()
-    //            make.height.equalTo(48)
-    //        }
-    //
-    //        ageErrorLabel.snp.remakeConstraints { make in
-    //            make.top.equalTo(ageTextField.snp.bottom).offset(6)
-    //            make.leading.equalToSuperview()
-    //            make.trailing.equalToSuperview()
-    //        }
-
     signUpButton.snp.remakeConstraints { make in
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
+      make.leading.trailing.equalToSuperview()
       make.bottom.equalToSuperview()
       make.height.equalTo(48)
     }
   }
 
   private func setupTextFieldDelegates() {
+    companyNameTextField.delegate = self
+    companyIdentificationCode.delegate = self
+    companyPhoneNumber.delegate = self
     emailTextField.delegate = self
     passwordTextField.delegate = self
   }
@@ -188,13 +181,26 @@ final class SignUpViewController: UIViewController {
   }
 
   private func updateFormState() {
+    viewModel.textFieldDidUpdate(type: .name, text: companyNameTextField.text ?? "")
+    viewModel.textFieldDidUpdate(type: .code, text: companyIdentificationCode.text ?? "")
+    viewModel.textFieldDidUpdate(type: .number, text: companyPhoneNumber.text ?? "")
     viewModel.textFieldDidUpdate(type: .email, text: emailTextField.text ?? "")
     viewModel.textFieldDidUpdate(type: .password, text: passwordTextField.text ?? "")
   }
 
   private func updateUIForAllFields() {
+    updateUI(for: companyNameTextField, fieldType: .name, errorLabel: companyNameErrorLabel)
+    updateUI(for: companyIdentificationCode, fieldType: .code, errorLabel: companyCodeErrorLabel)
+    updateUI(for: companyPhoneNumber, fieldType: .number, errorLabel: companyPhoneNumberErrorLabel)
     updateUI(for: emailTextField, fieldType: .email, errorLabel: emailErrorLabel)
     updateUI(for: passwordTextField, fieldType: .password, errorLabel: passwordErrorLabel)
+  }
+
+  private func createErrorLabel() -> UILabel {
+    let label = UILabel()
+    label.textColor = .red
+    label.font = UIFont.regularTitle4
+    return label
   }
 
   // MARK: - Actions
