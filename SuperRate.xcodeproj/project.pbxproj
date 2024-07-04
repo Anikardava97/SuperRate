@@ -30,6 +30,7 @@
 		533BF1FF2C35EC2000435DE4 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */; };
 		533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2002C35EC2900435DE4 /* ProfileViewController.swift */; };
 		533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2042C36995000435DE4 /* TextFieldComponent.swift */; };
+		533BF2072C36E00700435DE4 /* CurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2062C36E00700435DE4 /* CurrencyViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		533BF2002C35EC2900435DE4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		533BF2042C36995000435DE4 /* TextFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldComponent.swift; sourceTree = "<group>"; };
+		533BF2062C36E00700435DE4 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */,
+				533BF2062C36E00700435DE4 /* CurrencyViewModel.swift */,
 			);
 			path = Currency;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				533BF1F72C35CDFC00435DE4 /* UserAuthenticationManager.swift in Sources */,
 				533BF1FC2C35E8F800435DE4 /* TabBarController.swift in Sources */,
 				533BF1E62C35B8B500435DE4 /* OnboardingViewControllers.swift in Sources */,
+				533BF2072C36E00700435DE4 /* CurrencyViewModel.swift in Sources */,
 				533BF1F92C35CE1000435DE4 /* TextFieldValidationState.swift in Sources */,
 				533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */,
 				533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */,

@@ -147,7 +147,9 @@ final class LoginViewController: UIViewController {
     if viewModel.loginCompany(name: companyName, password: password) {
       delegate?.loginViewControllerDidTapLogin(self)
     } else {
-      showAlert(title: "ვერ გაიარეთ ავტორიზაცია", message: "სახელი ან პაროლი არასწორია. \n კიდევ სცადეთ.")
+      if !companyName.isEmpty && !password.isEmpty {
+        showAlert(title: "ვერ გაიარეთ ავტორიზაცია", message: "სახელი ან პაროლი არასწორია. \n კიდევ სცადეთ.")
+      }
     }
   }
 
