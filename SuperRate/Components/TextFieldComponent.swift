@@ -13,7 +13,8 @@ final class TextFieldComponent: UITextField {
   init(placeholder: String, keyboard: UIKeyboardType = .default, isSecure: Bool = false) {
     super.init(frame: .zero)
 
-    layer.borderWidth = 1.0
+    backgroundColor = .customSecondaryColor
+    layer.borderWidth = 0.8
     layer.cornerRadius = 8
     textColor = .white
     keyboardType = keyboard
@@ -22,7 +23,7 @@ final class TextFieldComponent: UITextField {
     attributedPlaceholder = NSAttributedString(
       string: placeholder,
       attributes: [
-        NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.8),
+        NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.6),
         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
       ]
     )

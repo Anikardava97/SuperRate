@@ -224,7 +224,7 @@ final class SignUpViewController: UIViewController {
       borderColor = UIColor.red.cgColor
       errorLabel?.text = validationState.errorMessage
     } else {
-      borderColor = UIColor.white.resolvedColor(with: traitCollection).cgColor
+      borderColor = UIColor.white.withAlphaComponent(0.1).resolvedColor(with: traitCollection).cgColor
       errorLabel?.text = ""
     }
     textField.layer.borderColor = borderColor

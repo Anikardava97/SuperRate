@@ -9,16 +9,8 @@ import UIKit
 import DesignSystem
 import SnapKit
 
-protocol OnboardingViewControllerDelegate: AnyObject {
-  func onboardingViewControllerDidTapNext(_ controller: OnboardingViewController)
-}
-
 final class OnboardingViewController: UIViewController {
   // MARK: - Properties
-  private var buttonLabelText: String
-
-  weak var delegate: OnboardingViewControllerDelegate?
-
   private lazy var mainStackView: UIStackView = {
     let stackView = UIStackView(arrangedSubviews: [onboardingImage, titleLabel, appBenefitsLabel])
     stackView.axis = .vertical
@@ -49,15 +41,8 @@ final class OnboardingViewController: UIViewController {
     return label
   }()
 
-  private lazy var nextButton: MainButtonComponent = {
-    let button = MainButtonComponent(text: self.buttonLabelText)
-    button.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
-    return button
-  }()
-
   // MARK: - Init
-  init(imageName: String, titleText: String, description: String, buttonLabelText: String) {
-    self.buttonLabelText = buttonLabelText
+  init(imageName: String, titleText: String, description: String) {
     super.init(nibName: nil, bundle: nil)
     onboardingImage.image = UIImage(named: imageName)
     titleLabel.text = titleText
@@ -87,7 +72,6 @@ final class OnboardingViewController: UIViewController {
 
   private func setupSubviews() {
     view.addSubview(mainStackView)
-    view.addSubview(nextButton)
   }
 
   private func setupConstraints() {
@@ -100,17 +84,5 @@ final class OnboardingViewController: UIViewController {
     onboardingImage.snp.remakeConstraints { make in
       make.size.equalTo(160)
     }
-
-    nextButton.snp.remakeConstraints { make in
-      make.leading.equalToSuperview().offset(20)
-      make.trailing.equalToSuperview().offset(-20)
-      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
-      make.height.equalTo(48)
-    }
-  }
-
-  //MARK: - Actions
-  @objc func nextButtonDidTap() {
-    delegate?.onboardingViewControllerDidTapNext(self)
   }
 }
