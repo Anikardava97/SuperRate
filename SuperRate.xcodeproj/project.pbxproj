@@ -31,6 +31,10 @@
 		533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2002C35EC2900435DE4 /* ProfileViewController.swift */; };
 		533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2042C36995000435DE4 /* TextFieldComponent.swift */; };
 		533BF2072C36E00700435DE4 /* CurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2062C36E00700435DE4 /* CurrencyViewModel.swift */; };
+		533BF2092C3721C600435DE4 /* MyOrdersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2082C3721C600435DE4 /* MyOrdersTableViewCell.swift */; };
+		533BF20C2C37250300435DE4 /* MyOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF20B2C37250300435DE4 /* MyOrder.swift */; };
+		533BF20F2C37287200435DE4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF20E2C37287200435DE4 /* NetworkManager.swift */; };
+		533BF2122C3728D900435DE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2112C3728D900435DE4 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +61,10 @@
 		533BF2002C35EC2900435DE4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		533BF2042C36995000435DE4 /* TextFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldComponent.swift; sourceTree = "<group>"; };
 		533BF2062C36E00700435DE4 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
+		533BF2082C3721C600435DE4 /* MyOrdersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersTableViewCell.swift; sourceTree = "<group>"; };
+		533BF20B2C37250300435DE4 /* MyOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrder.swift; sourceTree = "<group>"; };
+		533BF20E2C37287200435DE4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		533BF2112C3728D900435DE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +102,10 @@
 			children = (
 				533BF1D12C35B2E500435DE4 /* App */,
 				533BF1FD2C35E8FE00435DE4 /* TabBar */,
+				533BF20A2C3724F400435DE4 /* Models */,
 				533BF1FA2C35CE1B00435DE4 /* AuthenticationValidations */,
+				533BF20D2C37285F00435DE4 /* Managers */,
+				533BF2102C3728CC00435DE4 /* Constants */,
 				533BF1D22C35B2E900435DE4 /* Scenes */,
 				533BF1DF2C35B7F600435DE4 /* Components */,
 				533BF1D02C35B2C900435DE4 /* Resources */,
@@ -208,6 +219,7 @@
 		533BF2022C35EC4900435DE4 /* Currency */ = {
 			isa = PBXGroup;
 			children = (
+				533BF2132C372EF200435DE4 /* MyOrderTableViewCell */,
 				533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */,
 				533BF2062C36E00700435DE4 /* CurrencyViewModel.swift */,
 			);
@@ -220,6 +232,38 @@
 				533BF2002C35EC2900435DE4 /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		533BF20A2C3724F400435DE4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				533BF20B2C37250300435DE4 /* MyOrder.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		533BF20D2C37285F00435DE4 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				533BF20E2C37287200435DE4 /* NetworkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		533BF2102C3728CC00435DE4 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				533BF2112C3728D900435DE4 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		533BF2132C372EF200435DE4 /* MyOrderTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				533BF2082C3721C600435DE4 /* MyOrdersTableViewCell.swift */,
+			);
+			path = MyOrderTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,12 +349,16 @@
 				533BF1FF2C35EC2000435DE4 /* CurrencyViewController.swift in Sources */,
 				533BF1DE2C35B7F300435DE4 /* MainButtonComponent.swift in Sources */,
 				533BF1F72C35CDFC00435DE4 /* UserAuthenticationManager.swift in Sources */,
+				533BF20F2C37287200435DE4 /* NetworkManager.swift in Sources */,
 				533BF1FC2C35E8F800435DE4 /* TabBarController.swift in Sources */,
+				533BF2122C3728D900435DE4 /* Constants.swift in Sources */,
 				533BF1E62C35B8B500435DE4 /* OnboardingViewControllers.swift in Sources */,
 				533BF2072C36E00700435DE4 /* CurrencyViewModel.swift in Sources */,
 				533BF1F92C35CE1000435DE4 /* TextFieldValidationState.swift in Sources */,
 				533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */,
 				533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */,
+				533BF2092C3721C600435DE4 /* MyOrdersTableViewCell.swift in Sources */,
+				533BF20C2C37250300435DE4 /* MyOrder.swift in Sources */,
 				533BF1D42C35B30A00435DE4 /* MainViewController.swift in Sources */,
 				533BF1DC2C35B41E00435DE4 /* OnboardingViewController.swift in Sources */,
 				533BF1BA2C35A83700435DE4 /* AppDelegate.swift in Sources */,

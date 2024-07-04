@@ -14,6 +14,8 @@ final class CurrencyViewController: UIViewController {
   let todaysEuroRate = "2.98"
   let recieveExchangeRateDate = "6.07.2024, 15:00"
 
+  private var orders = [MyOrder]()
+
   private lazy var exchangeRateTitle = createSectionTitle()
 
   private lazy var dollarWrapperView = createCurrencyWrapperView()
@@ -57,17 +59,35 @@ final class CurrencyViewController: UIViewController {
     return imageView
   }()
 
+  private lazy var activeOrdersLabel = createOrdersLabel(isActiveOrder: true)
+
+  private lazy var inactiveOrdersLabel = createOrdersLabel(isActiveOrder: false)
+
+  private  var tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.backgroundColor = .clear
+    tableView.showsVerticalScrollIndicator = false
+    return tableView
+  }()
+
   // MARK: - ViewLifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
+    viewModel.viewDidLoad()
   }
 
   // MARK: - Methods
   private func setup() {
+    setupViewModelDelegate()
     setupBackground()
     setupSubviews()
     setupConstraints()
+    setupTableView()
+  }
+
+  private func setupViewModelDelegate() {
+    viewModel.delegate = self
   }
 
   private func setupBackground() {
@@ -90,6 +110,11 @@ final class CurrencyViewController: UIViewController {
     view.addSubview(exchangeRateDateLabel)
 
     view.addSubview(addOrderView)
+
+    view.addSubview(activeOrdersLabel)
+    view.addSubview(inactiveOrdersLabel)
+
+    view.addSubview(tableView)
   }
 
   private func setupConstraints() {
@@ -147,6 +172,22 @@ final class CurrencyViewController: UIViewController {
       make.top.equalTo(exchangeRateDateLabel.snp.bottom).offset(CGFloat.spacing7)
       make.leading.trailing.equalToSuperview().inset(20)
       make.height.equalTo(130)
+    }
+
+    activeOrdersLabel.snp.remakeConstraints { make in
+      make.top.equalTo(addOrderView.snp.bottom).offset(CGFloat.spacing7)
+      make.leading.equalToSuperview().offset(20)
+    }
+
+    tableView.snp.remakeConstraints { make in
+      make.top.equalTo(activeOrdersLabel.snp.bottom).offset(CGFloat.spacing6)
+      make.leading.trailing.equalToSuperview().inset(20)
+      make.height.equalTo(100)
+    }
+
+    inactiveOrdersLabel.snp.remakeConstraints { make in
+      make.top.equalTo(tableView.snp.bottom).offset(CGFloat.spacing7)
+      make.leading.equalToSuperview().offset(20)
     }
   }
 
@@ -208,7 +249,7 @@ final class CurrencyViewController: UIViewController {
     let label = UILabel()
     label.textColor = .white
     label.font = .systemFont(ofSize: 24, weight: .medium)
-    label.text = "1₾ = " + currency + rate
+    label.text = currency + rate
     return label
   }
 
@@ -218,10 +259,90 @@ final class CurrencyViewController: UIViewController {
     return imageView
   }
 
+  private func createOrdersLabel(isActiveOrder: Bool) -> UIView {
+    let wrapperView = UIView(frame: .zero)
+
+    let circleImageView = UIImageView()
+    circleImageView.image = UIImage(systemName: "circle.circle.fill")
+    circleImageView.tintColor = isActiveOrder ? .customAccentColor : .lightGray
+
+    let label = UILabel()
+    label.text = isActiveOrder ? "აქტიური ორდერები" : "დასრულებული ორდერები"
+    label.textColor = .white
+    label.font = .systemFont(ofSize: 14)
+
+    wrapperView.addSubview(circleImageView)
+    wrapperView.addSubview(label)
+
+    circleImageView.snp.remakeConstraints { make in
+      make.top.leading.equalToSuperview()
+      make.size.equalTo(16)
+    }
+
+    label.snp.remakeConstraints { make in
+      make.centerY.equalTo(circleImageView.snp.centerY)
+      make.leading.equalTo(circleImageView.snp.trailing).offset(CGFloat.spacing8)
+    }
+
+    return wrapperView
+  }
+
+  private func setupTableView() {
+    tableView.dataSource = self
+    tableView.delegate = self
+    tableView.register(MyOrdersTableViewCell.self, forCellReuseIdentifier: "MyOrders")
+  }
+
+  override func viewDidLayoutSubviews() {
+      super.viewDidLayoutSubviews()
+      print("Table view frame: \(tableView.frame)")
+  }
+
   // MARK: - Actions
   @objc func addOrderDidTap() {
     print("tapped")
   }
 }
 
+// MARK: - Extension: TableViewDataSource
+extension CurrencyViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return orders.count
+  }
 
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyOrders", for: indexPath) as? MyOrdersTableViewCell else {
+      return UITableViewCell()
+    }
+
+    let order = orders[indexPath.row]
+    cell.configure(with: order)
+    return cell
+  }
+}
+
+// MARK:  Extension: TableViewDelegate
+extension CurrencyViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    UITableView.automaticDimension
+  }
+}
+
+// MARK: - CurrencyViewModelDelegate
+extension CurrencyViewController: CurrencyViewModelDelegate {
+  func ordersFetched(_ orders: [MyOrder]) {
+    self.orders = orders
+    DispatchQueue.main.async {
+        self.tableView.reloadData()
+        print("Table view content size: \(self.tableView.contentSize)")
+    }
+  }
+
+  func showError(_ error: any Error) {
+    DispatchQueue.main.async {
+      let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .default))
+      self.present(alert, animated: true)
+    }
+  }
+}
