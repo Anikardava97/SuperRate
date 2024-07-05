@@ -72,6 +72,7 @@ final class MainViewController: UIViewController {
 
   private func presentTabBarController() {
     let tabBarController = TabBarController()
+    tabBarController.signOutDelegate = self
     addChildViewController(tabBarController, toView: self.view)
   }
 }
@@ -87,5 +88,12 @@ extension MainViewController: MainViewModelDelegate {
     case .application:
       presentTabBarController()
     }
+  }
+}
+
+// MARK: - Extension: ProfileViewControllerDelegate
+extension MainViewController: ProfileViewControllerDelegate {
+  func signOut() {
+    viewModel.userDidSignOut()
   }
 }
