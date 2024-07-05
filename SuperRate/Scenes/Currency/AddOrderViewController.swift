@@ -452,11 +452,11 @@ final class AddOrderViewController: UIViewController {
     let conversionRate: Double = {
       switch (calculator.fromCurrency, calculator.toCurrency) {
       case (Currency.GEL.rawValue, Currency.USD.rawValue):
-        return 0.2785
+        return 0.36
       case (Currency.USD.rawValue, Currency.GEL.rawValue):
-        return 2.785
+        return 2.75
       case (Currency.GEL.rawValue, Currency.EUR.rawValue):
-        return 0.298
+        return 0.33
       case (Currency.EUR.rawValue, Currency.GEL.rawValue):
         return 2.98
       default:

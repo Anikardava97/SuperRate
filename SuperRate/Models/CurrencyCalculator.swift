@@ -15,9 +15,9 @@ struct CurrencyCalculator {
   var currencyComparisonText: CurrencyComparisonText
 
   enum CurrencyComparisonText: String {
-    case gelToDollar = "1 GEl = 0.2785 USD"
-    case dollarToGel = "1 USD = 2.785 GEL"
-    case gelToEuro = "1 GEL = 0.298 EUR"
+    case gelToDollar = "1 GEL = 0.36 USD"
+    case dollarToGel = "1 USD = 2.75 GEL"
+    case gelToEuro = "1 GEL = 0.33 EUR"
     case euroToGel = "1 EUR = 2.98 GEL"
   }
 }

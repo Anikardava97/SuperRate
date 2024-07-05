@@ -10,7 +10,7 @@ import UIKit
 final class CurrencyViewController: UIViewController {
   // MARK: - Properties
   let viewModel = CurrencyViewModel()
-  let todaysDollarRate = "2.785"
+  let todaysDollarRate = "2.75"
   let todaysEuroRate = "2.98"
   let recieveExchangeRateDate = "6.07.2024, 15:00"
 
