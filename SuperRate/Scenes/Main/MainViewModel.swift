@@ -29,7 +29,7 @@ final class MainViewModel {
 
   // MARK: - Methods
   func viewDidLoad() {
-    let isUserLoggedIn = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
+    let isUserLoggedIn = UserDefaults.standard.bool(forKey: "isUserLoggedInn")
     currentScreen = isUserLoggedIn ? .application : .onboardingScreens
   }
 
