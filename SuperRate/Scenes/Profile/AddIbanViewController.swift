@@ -156,6 +156,8 @@ final class AddIbanViewController: UIViewController {
     delegate?.didAddNewIban()
     DispatchQueue.main.async { [weak self] in
       self?.navigationController?.popViewController(animated: true)
+      guard let self, let window = self.view.window else { return }
+      SnackBar.show(in: window, message: "ანგარიში წარმატებით დაემატა")
     }
   }
 }

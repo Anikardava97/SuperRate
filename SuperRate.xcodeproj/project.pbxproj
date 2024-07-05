@@ -43,6 +43,7 @@
 		53CD03382C380EEE008CAFC8 /* AddOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */; };
 		53CD033C2C3815FA008CAFC8 /* CurrencyCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */; };
 		53CD033E2C385ADD008CAFC8 /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */; };
+		53CD03402C385EC8008CAFC8 /* SnackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033F2C385EC8008CAFC8 /* SnackBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrderViewController.swift; sourceTree = "<group>"; };
 		53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCalculator.swift; sourceTree = "<group>"; };
 		53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
+		53CD033F2C385EC8008CAFC8 /* SnackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				533BF1DD2C35B7F300435DE4 /* MainButtonComponent.swift */,
 				533BF2042C36995000435DE4 /* TextFieldComponent.swift */,
 				533BF2262C37DDCA00435DE4 /* CardTextField.swift */,
+				53CD033F2C385EC8008CAFC8 /* SnackBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				533BF2072C36E00700435DE4 /* CurrencyViewModel.swift in Sources */,
 				533BF1F92C35CE1000435DE4 /* TextFieldValidationState.swift in Sources */,
 				533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */,
+				53CD03402C385EC8008CAFC8 /* SnackBar.swift in Sources */,
 				533BF2252C37DD6F00435DE4 /* AddIbanViewController.swift in Sources */,
 				533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */,
 				533BF2092C3721C600435DE4 /* MyOrderTableViewCell.swift in Sources */,

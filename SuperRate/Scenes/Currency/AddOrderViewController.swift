@@ -512,6 +512,8 @@ final class AddOrderViewController: UIViewController {
     let yesAction = UIAlertAction(title: "მსურს", style: .default) { [weak self] _ in
       self?.saveOrderInformation()
       self?.navigationController?.popViewController(animated: true)
+      guard let self, let window = self.view.window else { return }
+      SnackBar.show(in: window, message: "ორდერი წარმატებით განთავსდა")
     }
     alert.addAction(yesAction)
 
