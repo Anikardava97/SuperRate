@@ -18,6 +18,10 @@ final class AddOrderViewController: UIViewController {
     currencyComparisonText: .gelToDollar
   )
 
+  private var ibanManager: IbanManager?
+
+  private var selectedIban: IbanNumber?
+
   private lazy var paySumAmount = createLabel(labelText: "უზრუნველყოფის თანხა(3%) = 0.0 GEL", fontSize: 14)
 
   private let currencyPickerView = UIPickerView()
@@ -84,7 +88,51 @@ final class AddOrderViewController: UIViewController {
     return label
   }()
 
-  private lazy var placeOrder = MainButtonComponent(text: "ორდერის განთავსება")
+  private lazy var ibansStackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: [ibanIcon, ibanLabel, UIView(), chevronImageView])
+    stackView.spacing = 12
+    stackView.backgroundColor = .customSecondaryColor
+    stackView.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
+    stackView.isLayoutMarginsRelativeArrangement = true
+    stackView.layer.cornerRadius = 10
+
+    let creditCardsTapGesture = UITapGestureRecognizer(target: self, action: #selector(ibanStackViewDidTap))
+    stackView.isUserInteractionEnabled = true
+    stackView.addGestureRecognizer(creditCardsTapGesture)
+    return stackView
+  }()
+
+  private lazy var ibanIcon: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(systemName: "creditcard")
+    imageView.contentMode = .scaleAspectFit
+    imageView.tintColor = .white
+    return imageView
+  }()
+
+  private lazy var ibanLabel: UILabel = {
+    let label = UILabel()
+    label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+    label.text = ibanManager?.ibans.isEmpty == true ? "დაამატე ანგარიში" : "აირჩიე ანგარიში"
+    label.textColor = .white
+    return label
+  }()
+
+  private lazy var chevronImageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(systemName: "chevron.right")
+    imageView.contentMode = .scaleAspectFit
+    imageView.tintColor = .white
+    return imageView
+  }()
+
+  private lazy var placeOrder: MainButtonComponent = {
+    let button = MainButtonComponent(text: "ორდერის განთავსება")
+    button.isEnabled = false
+    button.alpha = 0.5
+    button.addTarget(self, action: #selector(placeOrderDidTap), for: .touchUpInside)
+    return button
+  }()
 
   // MARK: - ViewLifeCycle
   override func viewDidLoad() {
@@ -93,6 +141,7 @@ final class AddOrderViewController: UIViewController {
     setupPickerView()
     addTapGestureToCurrencyLabels()
     amountDidChange()
+    ibanManager = IbanManager.shared
   }
 
   // MARK: - Setup Methods
@@ -117,6 +166,7 @@ final class AddOrderViewController: UIViewController {
 
     view.addSubview(paySumAmount)
     view.addSubview(placeOrder)
+    view.addSubview(ibansStackView)
   }
 
   private func setupConstraints() {
@@ -156,6 +206,11 @@ final class AddOrderViewController: UIViewController {
 
     paySumAmount.snp.remakeConstraints { make in
       make.top.equalTo(currencyExchangeWrapperView.snp.bottom).offset(CGFloat.spacing6)
+      make.leading.trailing.equalToSuperview().inset(20)
+    }
+
+    ibansStackView.snp.remakeConstraints { make in
+      make.top.equalTo(paySumAmount.snp.bottom).offset(CGFloat.spacing6)
       make.leading.trailing.equalToSuperview().inset(20)
     }
 
@@ -237,7 +292,7 @@ final class AddOrderViewController: UIViewController {
 
     currencyPickerView.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(20)
-      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
       make.height.equalTo(300)
     }
   }
@@ -333,6 +388,35 @@ final class AddOrderViewController: UIViewController {
     currentCurrencyLabel.text = calculator.currencyComparisonText.rawValue
   }
 
+  private func updatePaySumAmountLabel(_ amount: Double) {
+    let currency = fromCurrencyLabel.text ?? ""
+    let formattedAmount = String(format: "%.2f", amount)
+    paySumAmount.text = "უზრუნველყოფის თანხა(3%) = \(formattedAmount) \(currency)"
+  }
+
+  private func updateIbanDisplay(with ibanNumber: IbanNumber) {
+    ibanLabel.text = ibanNumber.ibanNumber
+    selectedIban = ibanNumber
+    updatePlaceOrderButtonState()
+  }
+
+  private func updatePlaceOrderButtonState() {
+    let amount = Double(fromAmountTextField.text ?? "") ?? 0
+    let isEnabled = amount > 0 && selectedIban != nil
+    placeOrder.isEnabled = isEnabled
+    placeOrder.alpha = placeOrder.isEnabled ? 1.0 : 0.5
+  }
+
+  private func saveOrderInformation() {
+    let _ = OrderInfo(
+      fromCurrency: calculator.fromCurrency,
+      toCurrency: calculator.toCurrency,
+      fromAmount: fromAmountTextField.text ?? "",
+      toAmount: toAmountLabel.text ?? "",
+      selectedIban: selectedIban
+    )
+  }
+
   // MARK: - Actions
   @objc private func fromCurrencyDidTap() {
     isSelectingFromCurrency = true
@@ -384,13 +468,57 @@ final class AddOrderViewController: UIViewController {
     toAmountLabel.text = String(format: "%.2f", toAmount)
 
     let payAmount = fromAmount * 0.03
-     updatePaySumAmountLabel(payAmount)
+    updatePaySumAmountLabel(payAmount)
+
+    updatePlaceOrderButtonState()
   }
 
-  private func updatePaySumAmountLabel(_ amount: Double) {
-    let currency = fromCurrencyLabel.text ?? ""
-    let formattedAmount = String(format: "%.2f", amount)
-    paySumAmount.text = "უზრუნველყოფის თანხა(3%) = \(formattedAmount) \(currency)"
+  @objc private func ibanStackViewDidTap() {
+    if ibanManager?.ibans.isEmpty == true {
+      let addIbanViewController = AddIbanViewController()
+      navigationController?.pushViewController(addIbanViewController, animated: true)
+    } else {
+      let actionSheet = UIAlertController(title: "აირჩიე ანგარიში", message: nil, preferredStyle: .actionSheet)
+
+      for ibanNumber in ibanManager?.ibans ?? [] {
+        let ibanAction = UIAlertAction(title: ibanNumber.ibanNumber, style: .default) { [weak self] action in
+          self?.updateIbanDisplay(with: ibanNumber)
+        }
+        actionSheet.addAction(ibanAction)
+      }
+
+      let addNewIbanAction = UIAlertAction(title: "დაამატე ახალი ანგარიში", style: .default) { [weak self] _ in
+        let addIbanViewController = AddIbanViewController()
+        self?.navigationController?.pushViewController(addIbanViewController, animated: true)
+      }
+      actionSheet.addAction(addNewIbanAction)
+
+      let cancelAction = UIAlertAction(title: "გაუქმება", style: .cancel, handler: nil)
+      actionSheet.addAction(cancelAction)
+
+      actionSheet.view.tintColor = .customAccentColor
+      present(actionSheet, animated: true, completion: nil)
+    }
+  }
+
+  @objc private func placeOrderDidTap() {
+    guard
+      let fromAmount = fromAmountTextField.text,
+      let fromCurrency = fromCurrencyLabel.text else { return }
+
+    let message = "ნამდვილად გსურთ \(fromAmount) \(fromCurrency) ორდერის განთავსება ?"
+    let alert = UIAlertController(title: "ორდერის განთავსება", message: message, preferredStyle: .alert)
+
+    let yesAction = UIAlertAction(title: "მსურს", style: .default) { [weak self] _ in
+      self?.saveOrderInformation()
+      self?.navigationController?.popViewController(animated: true)
+    }
+    alert.addAction(yesAction)
+
+    let cancelAction = UIAlertAction(title: "არ მსურს", style: .cancel, handler: nil)
+    alert.addAction(cancelAction)
+
+    present(alert, animated: true, completion: nil)
   }
 }
 

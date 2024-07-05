@@ -42,6 +42,7 @@
 		533BF2272C37DDCA00435DE4 /* CardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2262C37DDCA00435DE4 /* CardTextField.swift */; };
 		53CD03382C380EEE008CAFC8 /* AddOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */; };
 		53CD033C2C3815FA008CAFC8 /* CurrencyCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */; };
+		53CD033E2C385ADD008CAFC8 /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		533BF2262C37DDCA00435DE4 /* CardTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTextField.swift; sourceTree = "<group>"; };
 		53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrderViewController.swift; sourceTree = "<group>"; };
 		53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCalculator.swift; sourceTree = "<group>"; };
+		53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +260,7 @@
 				533BF20B2C37250300435DE4 /* MyOrder.swift */,
 				533BF21A2C37DB5300435DE4 /* CreditCard.swift */,
 				53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */,
+				53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				533BF1D42C35B30A00435DE4 /* MainViewController.swift in Sources */,
 				533BF1DC2C35B41E00435DE4 /* OnboardingViewController.swift in Sources */,
 				533BF1BA2C35A83700435DE4 /* AppDelegate.swift in Sources */,
+				53CD033E2C385ADD008CAFC8 /* OrderInfo.swift in Sources */,
 				533BF1BC2C35A83700435DE4 /* SceneDelegate.swift in Sources */,
 				533BF1D72C35B33E00435DE4 /* MainViewModel.swift in Sources */,
 				533BF1EA2C35CC3500435DE4 /* UserAuthenticationViewController.swift in Sources */,
