@@ -33,7 +33,7 @@ final class MainViewModel {
     currentScreen = isUserLoggedIn ? .application : .onboardingScreens
   }
 
-  func userDidLogOut() {
+  func userDidSignOut() {
     UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
     currentScreen = .loginScreen
   }

@@ -8,6 +8,8 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
+  weak var signOutDelegate: ProfileViewControllerDelegate?
+
   // MARK: - ViewLifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,9 +23,13 @@ final class TabBarController: UITabBarController {
       title: "ვალუტები", image: UIImage(systemName: "dollarsign.arrow.circlepath"),
       viewController: CurrencyViewController()
     )
+
+    let profileViewController = ProfileViewController()
+    profileViewController.delegate = self
+
     let profile = createNavigationController(
       title: "პროფილი", image: UIImage(systemName: "person"),
-      viewController: ProfileViewController()
+      viewController: profileViewController
     )
 
     setViewControllers([home, profile], animated: true)
@@ -57,5 +63,11 @@ final class TabBarController: UITabBarController {
     let tabBarScrollEdgeAppearance = UITabBarAppearance()
     tabBarScrollEdgeAppearance.backgroundColor = .customSecondaryColor
     return tabBarScrollEdgeAppearance
+  }
+}
+
+extension TabBarController: ProfileViewControllerDelegate {
+  func signOut() {
+    signOutDelegate?.signOut()
   }
 }
