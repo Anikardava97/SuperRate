@@ -123,7 +123,7 @@ final class AddIbanViewController: UIViewController {
     let isValid = ibanFieldsAreValid()
     addIbanButton.isEnabled = isValid
     addIbanButton.backgroundColor = isValid ? .customAccentColor : .customAccentColor.withAlphaComponent(0.6)
-    addIbanButton.setTitleColor(isValid ? .white : .white.withAlphaComponent(0.6), for: .normal)
+    addIbanButton.setTitleColor(isValid ? .white : .white.withAlphaComponent(0.5), for: .normal)
   }
 
   // MARK: - Actions
@@ -156,6 +156,8 @@ final class AddIbanViewController: UIViewController {
     delegate?.didAddNewIban()
     DispatchQueue.main.async { [weak self] in
       self?.navigationController?.popViewController(animated: true)
+      guard let self, let window = self.view.window else { return }
+      SnackBar.show(in: window, message: "ანგარიში წარმატებით დაემატა")
     }
   }
 }

@@ -37,10 +37,14 @@
 		533BF2122C3728D900435DE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2112C3728D900435DE4 /* Constants.swift */; };
 		533BF2192C37DB1A00435DE4 /* IbanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2182C37DB1A00435DE4 /* IbanManager.swift */; };
 		533BF21B2C37DB5300435DE4 /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF21A2C37DB5300435DE4 /* CreditCard.swift */; };
-		533BF2202C37DC9000435DE4 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF21F2C37DC9000435DE4 /* CircularButton.swift */; };
 		533BF2222C37DCD200435DE4 /* MyIbansTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2212C37DCD200435DE4 /* MyIbansTableViewCell.swift */; };
 		533BF2252C37DD6F00435DE4 /* AddIbanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2242C37DD6F00435DE4 /* AddIbanViewController.swift */; };
 		533BF2272C37DDCA00435DE4 /* CardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2262C37DDCA00435DE4 /* CardTextField.swift */; };
+		53CD03382C380EEE008CAFC8 /* AddOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */; };
+		53CD033C2C3815FA008CAFC8 /* CurrencyCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */; };
+		53CD033E2C385ADD008CAFC8 /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */; };
+		53CD03402C385EC8008CAFC8 /* SnackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033F2C385EC8008CAFC8 /* SnackBar.swift */; };
+		53CD03422C386218008CAFC8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD03412C386218008CAFC8 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,10 +77,14 @@
 		533BF2112C3728D900435DE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		533BF2182C37DB1A00435DE4 /* IbanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbanManager.swift; sourceTree = "<group>"; };
 		533BF21A2C37DB5300435DE4 /* CreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
-		533BF21F2C37DC9000435DE4 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		533BF2212C37DCD200435DE4 /* MyIbansTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIbansTableViewCell.swift; sourceTree = "<group>"; };
 		533BF2242C37DD6F00435DE4 /* AddIbanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIbanViewController.swift; sourceTree = "<group>"; };
 		533BF2262C37DDCA00435DE4 /* CardTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTextField.swift; sourceTree = "<group>"; };
+		53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrderViewController.swift; sourceTree = "<group>"; };
+		53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCalculator.swift; sourceTree = "<group>"; };
+		53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
+		53CD033F2C385EC8008CAFC8 /* SnackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBar.swift; sourceTree = "<group>"; };
+		53CD03412C386218008CAFC8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +189,8 @@
 			children = (
 				533BF1DD2C35B7F300435DE4 /* MainButtonComponent.swift */,
 				533BF2042C36995000435DE4 /* TextFieldComponent.swift */,
-				533BF21F2C37DC9000435DE4 /* CircularButton.swift */,
 				533BF2262C37DDCA00435DE4 /* CardTextField.swift */,
+				53CD033F2C385EC8008CAFC8 /* SnackBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -235,6 +243,7 @@
 			children = (
 				533BF2132C372EF200435DE4 /* MyOrderTableViewCell */,
 				533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */,
+				53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */,
 				533BF2062C36E00700435DE4 /* CurrencyViewModel.swift */,
 			);
 			path = Currency;
@@ -255,6 +264,8 @@
 			children = (
 				533BF20B2C37250300435DE4 /* MyOrder.swift */,
 				533BF21A2C37DB5300435DE4 /* CreditCard.swift */,
+				53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */,
+				53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -264,6 +275,7 @@
 			children = (
 				533BF20E2C37287200435DE4 /* NetworkManager.swift */,
 				533BF2182C37DB1A00435DE4 /* IbanManager.swift */,
+				53CD03412C386218008CAFC8 /* NotificationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -379,20 +391,24 @@
 				533BF20F2C37287200435DE4 /* NetworkManager.swift in Sources */,
 				533BF1FC2C35E8F800435DE4 /* TabBarController.swift in Sources */,
 				533BF2122C3728D900435DE4 /* Constants.swift in Sources */,
+				53CD033C2C3815FA008CAFC8 /* CurrencyCalculator.swift in Sources */,
 				533BF1E62C35B8B500435DE4 /* OnboardingViewControllers.swift in Sources */,
 				533BF2192C37DB1A00435DE4 /* IbanManager.swift in Sources */,
 				533BF2072C36E00700435DE4 /* CurrencyViewModel.swift in Sources */,
 				533BF1F92C35CE1000435DE4 /* TextFieldValidationState.swift in Sources */,
 				533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */,
+				53CD03402C385EC8008CAFC8 /* SnackBar.swift in Sources */,
+				53CD03422C386218008CAFC8 /* NotificationManager.swift in Sources */,
 				533BF2252C37DD6F00435DE4 /* AddIbanViewController.swift in Sources */,
 				533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */,
 				533BF2092C3721C600435DE4 /* MyOrderTableViewCell.swift in Sources */,
 				533BF2272C37DDCA00435DE4 /* CardTextField.swift in Sources */,
+				53CD03382C380EEE008CAFC8 /* AddOrderViewController.swift in Sources */,
 				533BF20C2C37250300435DE4 /* MyOrder.swift in Sources */,
 				533BF1D42C35B30A00435DE4 /* MainViewController.swift in Sources */,
 				533BF1DC2C35B41E00435DE4 /* OnboardingViewController.swift in Sources */,
 				533BF1BA2C35A83700435DE4 /* AppDelegate.swift in Sources */,
-				533BF2202C37DC9000435DE4 /* CircularButton.swift in Sources */,
+				53CD033E2C385ADD008CAFC8 /* OrderInfo.swift in Sources */,
 				533BF1BC2C35A83700435DE4 /* SceneDelegate.swift in Sources */,
 				533BF1D72C35B33E00435DE4 /* MainViewModel.swift in Sources */,
 				533BF1EA2C35CC3500435DE4 /* UserAuthenticationViewController.swift in Sources */,

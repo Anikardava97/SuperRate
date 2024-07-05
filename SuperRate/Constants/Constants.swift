@@ -9,6 +9,6 @@ import Foundation
 
 struct Constants {
   struct URLs {
-    static let ordersListURL = "https://mocki.io/v1/a6618348-b228-483c-8ce3-05fb01af8de2"
+    static let ordersListURL = "https://mocki.io/v1/8a8b63b9-f8ed-46fb-9ada-9647f7988987"
   }
 }

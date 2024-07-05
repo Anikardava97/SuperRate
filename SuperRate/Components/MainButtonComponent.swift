@@ -14,7 +14,7 @@ final class MainButtonComponent: UIButton {
         super.init(frame: .zero)
 
         setTitle(text, for: .normal)
-        titleLabel?.font = UIFont.boldTitle3
+        titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         setTitleColor(.white, for: .normal)
         self.backgroundColor = .customAccentColor
         layer.cornerRadius = 8

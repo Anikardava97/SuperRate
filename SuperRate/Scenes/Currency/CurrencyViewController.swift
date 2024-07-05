@@ -323,7 +323,8 @@ final class CurrencyViewController: UIViewController {
 
   // MARK: - Actions
   @objc func addOrderDidTap() {
-    print("tapped")
+    let addIOrderViewController = AddOrderViewController()
+    navigationController?.pushViewController(addIOrderViewController, animated: true)
   }
 }
 

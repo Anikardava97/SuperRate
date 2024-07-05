@@ -199,9 +199,9 @@ final class ProfileViewController: UIViewController {
   }
 
   @objc private func signOutDidTap() {
-    let alert = UIAlertController(title: "Sign Out", message: "ნამდვილად გსურთ გასვლა?", preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-    alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { [weak self] _ in
+    let alert = UIAlertController(title: "გასვლა", message: "ნამდვილად გსურთ გასვლა?", preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "გაუქმება", style: .cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "გასვლა", style: .destructive, handler: { [weak self] _ in
       self?.delegate?.signOut()
     }))
     present(alert, animated: true)

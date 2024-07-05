@@ -15,7 +15,7 @@ final class IbanManager {
   var ibans: [IbanNumber]
 
   // MARK: - Init
-  init() {
+  private init() {
     self.ibans = []
     loadIbansForCurrentUser()
   }
