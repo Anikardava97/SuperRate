@@ -407,8 +407,8 @@ final class AddOrderViewController: UIViewController {
     placeOrder.alpha = placeOrder.isEnabled ? 1.0 : 0.5
   }
 
-  private func saveOrderInformation() {
-    let _ = OrderInfo(
+  private func saveOrderInformation() -> OrderInfo {
+    return OrderInfo(
       fromCurrency: calculator.fromCurrency,
       toCurrency: calculator.toCurrency,
       fromAmount: fromAmountTextField.text ?? "",
@@ -510,10 +510,19 @@ final class AddOrderViewController: UIViewController {
     let alert = UIAlertController(title: "ორდერის განთავსება", message: message, preferredStyle: .alert)
 
     let yesAction = UIAlertAction(title: "მსურს", style: .default) { [weak self] _ in
-      self?.saveOrderInformation()
-      self?.navigationController?.popViewController(animated: true)
-      guard let self, let window = self.view.window else { return }
+      guard let self = self else { return }
+
+      let orderInfo = self.saveOrderInformation()
+      self.navigationController?.popViewController(animated: true)
+
+      guard let window = self.view.window else { return }
       SnackBar.show(in: window, message: "ორდერი წარმატებით განთავსდა")
+
+      NotificationManager.shared.requestAuthorization { granted in
+        if granted {
+          NotificationManager.shared.scheduleNotification(for: orderInfo)
+        }
+      }
     }
     alert.addAction(yesAction)
 

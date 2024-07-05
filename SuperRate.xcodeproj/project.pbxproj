@@ -44,6 +44,7 @@
 		53CD033C2C3815FA008CAFC8 /* CurrencyCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */; };
 		53CD033E2C385ADD008CAFC8 /* OrderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */; };
 		53CD03402C385EC8008CAFC8 /* SnackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD033F2C385EC8008CAFC8 /* SnackBar.swift */; };
+		53CD03422C386218008CAFC8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD03412C386218008CAFC8 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		53CD033B2C3815FA008CAFC8 /* CurrencyCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCalculator.swift; sourceTree = "<group>"; };
 		53CD033D2C385ADD008CAFC8 /* OrderInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderInfo.swift; sourceTree = "<group>"; };
 		53CD033F2C385EC8008CAFC8 /* SnackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBar.swift; sourceTree = "<group>"; };
+		53CD03412C386218008CAFC8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +275,7 @@
 			children = (
 				533BF20E2C37287200435DE4 /* NetworkManager.swift */,
 				533BF2182C37DB1A00435DE4 /* IbanManager.swift */,
+				53CD03412C386218008CAFC8 /* NotificationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				533BF1F92C35CE1000435DE4 /* TextFieldValidationState.swift in Sources */,
 				533BF2052C36995000435DE4 /* TextFieldComponent.swift in Sources */,
 				53CD03402C385EC8008CAFC8 /* SnackBar.swift in Sources */,
+				53CD03422C386218008CAFC8 /* NotificationManager.swift in Sources */,
 				533BF2252C37DD6F00435DE4 /* AddIbanViewController.swift in Sources */,
 				533BF2012C35EC2900435DE4 /* ProfileViewController.swift in Sources */,
 				533BF2092C3721C600435DE4 /* MyOrderTableViewCell.swift in Sources */,
