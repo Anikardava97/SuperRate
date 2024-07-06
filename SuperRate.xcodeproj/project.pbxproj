@@ -243,8 +243,8 @@
 			children = (
 				533BF2132C372EF200435DE4 /* MyOrderTableViewCell */,
 				533BF1FE2C35EC2000435DE4 /* CurrencyViewController.swift */,
-				53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */,
 				533BF2062C36E00700435DE4 /* CurrencyViewModel.swift */,
+				53CD03372C380EEE008CAFC8 /* AddOrderViewController.swift */,
 			);
 			path = Currency;
 			sourceTree = "<group>";

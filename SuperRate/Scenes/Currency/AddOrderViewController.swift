@@ -134,7 +134,7 @@ final class AddOrderViewController: UIViewController {
     return button
   }()
 
-  // MARK: - ViewLifeCycle
+  // MARK: - ViewLifeCycles
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
@@ -142,6 +142,12 @@ final class AddOrderViewController: UIViewController {
     addTapGestureToCurrencyLabels()
     amountDidChange()
     ibanManager = IbanManager.shared
+    updateIbanDisplay()
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    updateIbanDisplay()
   }
 
   // MARK: - Setup Methods
@@ -417,6 +423,22 @@ final class AddOrderViewController: UIViewController {
     )
   }
 
+  private func presentAddIbanViewController() {
+    let addIbanViewController = AddIbanViewController()
+    addIbanViewController.delegate = self
+    addIbanViewController.ibanManager = self.ibanManager
+    navigationController?.pushViewController(addIbanViewController, animated: true)
+  }
+
+  private func updateIbanDisplay() {
+    if let latestIban = ibanManager?.ibans.last {
+      updateIbanDisplay(with: latestIban)
+    } else {
+      ibanLabel.text = "დაამატე ანგარიში"
+      selectedIban = nil
+    }
+  }
+
   // MARK: - Actions
   @objc private func fromCurrencyDidTap() {
     isSelectingFromCurrency = true
@@ -475,8 +497,7 @@ final class AddOrderViewController: UIViewController {
 
   @objc private func ibanStackViewDidTap() {
     if ibanManager?.ibans.isEmpty == true {
-      let addIbanViewController = AddIbanViewController()
-      navigationController?.pushViewController(addIbanViewController, animated: true)
+      presentAddIbanViewController()
     } else {
       let actionSheet = UIAlertController(title: "აირჩიე ანგარიში", message: nil, preferredStyle: .actionSheet)
 
@@ -488,9 +509,9 @@ final class AddOrderViewController: UIViewController {
       }
 
       let addNewIbanAction = UIAlertAction(title: "დაამატე ახალი ანგარიში", style: .default) { [weak self] _ in
-        let addIbanViewController = AddIbanViewController()
-        self?.navigationController?.pushViewController(addIbanViewController, animated: true)
+        self?.presentAddIbanViewController()
       }
+
       actionSheet.addAction(addNewIbanAction)
 
       let cancelAction = UIAlertAction(title: "გაუქმება", style: .cancel, handler: nil)
@@ -560,5 +581,12 @@ extension AddOrderViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     label.textAlignment = .center
     label.text = availableCurrencies[row].rawValue
     return label
+  }
+}
+
+// MARK: - AddIbanViewControllerDelegate
+extension AddOrderViewController: AddIbanViewControllerDelegate {
+  func didAddNewIban() {
+    updateIbanDisplay()
   }
 }
